@@ -1,0 +1,241 @@
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+body {
+    color: #797979;
+    background: #ffffff;
+    padding: 0px !important;
+    margin: 0px !important;
+    font-size:13px;
+    color:rgba(102,102,102,1);
+    font-family: PingFangSC-Thin;
+}
+header{
+    background-color: #1a1a1a;
+    width: 100%;
+    font-weight:bold;
+    line-height:40px;
+    text-align: center;
+    padding-top:10px ;
+    color: #FFFFFF;
+}
+header .btn-return{
+    width:40px;
+    height:34px;
+    position: absolute;
+    left: 5px;
+    border: 0px;
+    background: none;
+}
+}
+.wrapper {
+    display: inline-block;
+    margin-top: 60px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    padding-top: 0px;
+    width: 100%;
+}
+.div-case{
+    width:30%;
+    height:30%;
+    margin-top: 10px;
+}
+.div-case p{
+    margin: 0 -5px 10px;
+    line-height: 8px;
+    color: rgba(255,255,255,1);
+}
+.div-case img{
+    width: 20px;
+    height: 20px;
+}
+.div-case .img-div{
+    width: 100%;
+    height: 60px;
+}
+.div-case .p-div{
+    width: 100%;
+    height: 40px;
+}
+.div-case .icon-border{
+    width: 22px;
+    height: 24px;
+    border-width: 1px;
+    border-style: dashed;
+    border-color: rgba(0, 0, 0, 0.36);
+    border-radius: 0px;
+    margin: 10px 0px;
+    position: absolute;
+
+}
+.div-case-1{
+    background:rgba(139,200,218,1);
+    border-radius:10px;
+    margin-right: 13px;
+}
+.div-case-2{
+    background:rgba(163,162,228,1);
+    border-radius:10px;
+    margin-right: 13px;
+}
+.div-case-3{
+    background:rgba(154,226,162,1);
+    border-radius:10px;
+}
+.div-case-4{
+    background:url(../img/h5-introduce.png) no-repeat;
+    background-size: 100% auto;    /*设置宽度100%，高度自动*/
+    -webkit-background-size: 100% auto;
+    margin:10px 12px 0px 12px;
+    height: 170px;
+}
+.div-case-4 p{
+    line-height: 5px;
+    margin: 15px 0px 10px;
+}
+.div-case-5{
+    background:rgba(251,139,137,1);
+    border-radius:10px;
+    margin-right: 13px;
+}
+.div-case-6{
+    background:rgba(255,181,123,1);
+    border-radius:10px;
+    margin-right: 13px;
+}
+.div-case-7{
+    background:rgba(100,197,232,1);
+    border-radius:10px;
+}
+#introduce{
+    color: #1a1a1a;
+}
+#introduce .icon-bar{
+    background-color: #1a1a1a;
+    width: 5px;
+    position: unset;
+    height: 26px;
+    position: absolute;
+    left: 5px;
+}
+#introduce p{
+    line-height: 23px;
+    text-indent: 25px;
+}
+
+h3{
+    padding-left: 20px;
+    margin-top: 5px;
+}
+p {
+    color:rgba(102,102,102,1);
+    line-height:15px;
+    padding: 0px 13px;
+}
+p img{
+    padding: 0px -5px;
+    width: 95%;
+    height: 230px;
+    margin: 0px -20px;
+}
+#activity-index p{
+    padding: 0px;
+    color: #FFFFFF;
+}
+#sponsor-mark{
+    border-bottom: 2px #bcc8d44d solid;
+    margin-bottom: 10px;
+    padding: 10px;
+    height: 120px;
+}
+#sponsor-mark .img-div{
+    float: left;
+    border: 1px black solid;
+}
+#sponsor-mark .p-div{
+    text-indent: 0px;
+    font-size: 11px;
+}
+#sponsor-mark .p-div p{
+    margin-bottom: 5px;
+    padding: 0px 0px;
+}
+#sponsor-mark img{
+    width: 80px;
+    height: 80px;
+}
+#sponsor p img{
+    height: 200px;
+}
+#sponsor .content p{
+    line-height: 23px;
+    text-indent: 25px;
+}
+
+#activity-apply{
+    color: #rgb(102,102,102,1);
+}
+#activity-apply .div-case-4 p{
+    color: #FFFFFF;
+    margin: 15px -40px 0px;
+    text-indent: 25px;
+}
+
+#activity-apply .lead{
+    padding: 0px 0px;
+    font-size: 13px;
+    line-height: 23px;
+    text-indent: 25px;
+}
+#activity-apply .col-xs-12{
+    border-bottom: 2px #bcc8d44d solid;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#activity-apply .icon-div{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+#activity-apply .icon-div img{
+    width: 13px;
+    height: 13px;
+    margin-right: 10px;
+}
+#activity-footer .col-xs-9{
+    padding:10px 5px;
+}
+#activity-footer .col-xs-3{
+    padding:10px 5px;
+}
+#activity-footer input{
+    border: 1px #66CC00 solid;
+}
+#activity-footer span{
+    float: right;
+    margin: -30px 5px 0px 0px;
+    color: #6C0;
+    font-size: 16px;
+}
+#activity-footer button{
+    width: 90%;
+    color: #FFFFFF;
+    background-color: #66CC00;
+    border: 1px #66CC00 solid;
+}
+#user-verify .div-case-1{
+    background:url(../img/user-verify-1.png) no-repeat;
+    background-size: 100% auto;    /*设置宽度100%，高度自动*/
+    -webkit-background-size: 100% auto;
+    height: 230px;
+    border-radius: 0px;
+}
+#user-verify .div-case-2{
+    background:url(../img/mobile-icon/verify-1.png) no-repeat;
+    background-size: 100% auto;    /*设置宽度100%，高度自动*/
+    -webkit-background-size: 100% auto;    height: 170px;
+
+}

@@ -831,6 +831,9 @@ ul li {
 	margin: 100px auto 0;
 	background: #fff;
 	border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #4ecdc4;
 	-webkit-border-radius: 5px;
 }
 
@@ -2258,7 +2261,9 @@ ul.chat-available-user li a:hover {
 }
 .fileupload-new img{
 }
-
+.row{
+    margin-right: 0px;
+}
 /*签到-选择窗口*/
 .bg {
     background:url(../img/u3692.png) no-repeat;
@@ -2330,7 +2335,7 @@ ul.chat-available-user li a:hover {
     margin: 0 auto;
 }
 #container-fluid .lucency-input{
-    width: 795px;
+    width: 95%;
 }
     /*活动中签到页*/
 .sign-userinfo .card{
