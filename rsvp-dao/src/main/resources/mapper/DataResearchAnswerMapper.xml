@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.DataResearchAnswerMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.DataResearchAnswer">
+    <id column="answer_id" jdbcType="INTEGER" property="answerId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="page_template_id" jdbcType="INTEGER" property="pageTemplateId" />
+    <result column="page_research_id" jdbcType="INTEGER" property="pageResearchId" />
+    <result column="page_research_content" jdbcType="VARCHAR" property="pageResearchContent" />
+    <result column="page_research_item_id" jdbcType="INTEGER" property="pageResearchItemId" />
+    <result column="page_research_item_name" jdbcType="VARCHAR" property="pageResearchItemName" />
+    <result column="page_research_item_content" jdbcType="VARCHAR" property="pageResearchItemContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    answer_id, create_time, page_template_id, page_research_id, page_research_content, 
+    page_research_item_id, page_research_item_name, page_research_item_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rsvp_data_research_answer
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_data_research_answer
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.DataResearchAnswer">
+    insert into rsvp_data_research_answer (answer_id, create_time, page_template_id, 
+      page_research_id, page_research_content, page_research_item_id, 
+      page_research_item_name, page_research_item_content
+      )
+    values (#{answerId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{pageTemplateId,jdbcType=INTEGER}, 
+      #{pageResearchId,jdbcType=INTEGER}, #{pageResearchContent,jdbcType=VARCHAR}, #{pageResearchItemId,jdbcType=INTEGER}, 
+      #{pageResearchItemName,jdbcType=VARCHAR}, #{pageResearchItemContent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.DataResearchAnswer">
+    insert into rsvp_data_research_answer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="answerId != null">
+        answer_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id,
+      </if>
+      <if test="pageResearchId != null">
+        page_research_id,
+      </if>
+      <if test="pageResearchContent != null">
+        page_research_content,
+      </if>
+      <if test="pageResearchItemId != null">
+        page_research_item_id,
+      </if>
+      <if test="pageResearchItemName != null">
+        page_research_item_name,
+      </if>
+      <if test="pageResearchItemContent != null">
+        page_research_item_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="answerId != null">
+        #{answerId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        #{pageTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="pageResearchId != null">
+        #{pageResearchId,jdbcType=INTEGER},
+      </if>
+      <if test="pageResearchContent != null">
+        #{pageResearchContent,jdbcType=VARCHAR},
+      </if>
+      <if test="pageResearchItemId != null">
+        #{pageResearchItemId,jdbcType=INTEGER},
+      </if>
+      <if test="pageResearchItemName != null">
+        #{pageResearchItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="pageResearchItemContent != null">
+        #{pageResearchItemContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.DataResearchAnswer">
+    update rsvp_data_research_answer
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id = #{pageTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="pageResearchId != null">
+        page_research_id = #{pageResearchId,jdbcType=INTEGER},
+      </if>
+      <if test="pageResearchContent != null">
+        page_research_content = #{pageResearchContent,jdbcType=VARCHAR},
+      </if>
+      <if test="pageResearchItemId != null">
+        page_research_item_id = #{pageResearchItemId,jdbcType=INTEGER},
+      </if>
+      <if test="pageResearchItemName != null">
+        page_research_item_name = #{pageResearchItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="pageResearchItemContent != null">
+        page_research_item_content = #{pageResearchItemContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.DataResearchAnswer">
+    update rsvp_data_research_answer
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      page_template_id = #{pageTemplateId,jdbcType=INTEGER},
+      page_research_id = #{pageResearchId,jdbcType=INTEGER},
+      page_research_content = #{pageResearchContent,jdbcType=VARCHAR},
+      page_research_item_id = #{pageResearchItemId,jdbcType=INTEGER},
+      page_research_item_name = #{pageResearchItemName,jdbcType=VARCHAR},
+      page_research_item_content = #{pageResearchItemContent,jdbcType=VARCHAR}
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.ActivityPageMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.ActivityPage">
+    <id column="activity_page_id" jdbcType="INTEGER" property="activityPageId" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="link_address" jdbcType="VARCHAR" property="linkAddress" />
+    <result column="activity_info_id" jdbcType="INTEGER" property="activityInfoId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="page_type" jdbcType="VARCHAR" property="pageType" />
+    <result column="page_type_name" jdbcType="VARCHAR" property="pageTypeName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.highteam.router.model.ActivityPage">
+    <result column="template_id" jdbcType="LONGVARCHAR" property="templateId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    activity_page_id, create_id, create_name, create_time, link_address, activity_info_id, 
+    title, page_type, page_type_name, description, status
+  </sql>
+  <sql id="Blob_Column_List">
+    template_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from rsvp_activity_page
+    where activity_page_id = #{activityPageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_activity_page
+    where activity_page_id = #{activityPageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.ActivityPage">
+    insert into rsvp_activity_page (activity_page_id, create_id, create_name, 
+      create_time, link_address, activity_info_id, 
+      title, page_type, page_type_name, 
+      description, status, template_id
+      )
+    values (#{activityPageId,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{linkAddress,jdbcType=VARCHAR}, #{activityInfoId,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{pageType,jdbcType=VARCHAR}, #{pageTypeName,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{templateId,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.ActivityPage">
+    insert into rsvp_activity_page
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activityPageId != null">
+        activity_page_id,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="linkAddress != null">
+        link_address,
+      </if>
+      <if test="activityInfoId != null">
+        activity_info_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="pageType != null">
+        page_type,
+      </if>
+      <if test="pageTypeName != null">
+        page_type_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="templateId != null">
+        template_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activityPageId != null">
+        #{activityPageId,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="linkAddress != null">
+        #{linkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="activityInfoId != null">
+        #{activityInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="pageType != null">
+        #{pageType,jdbcType=VARCHAR},
+      </if>
+      <if test="pageTypeName != null">
+        #{pageTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null">
+        #{templateId,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.ActivityPage">
+    update rsvp_activity_page
+    <set>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="linkAddress != null">
+        link_address = #{linkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="activityInfoId != null">
+        activity_info_id = #{activityInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="pageType != null">
+        page_type = #{pageType,jdbcType=VARCHAR},
+      </if>
+      <if test="pageTypeName != null">
+        page_type_name = #{pageTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null">
+        template_id = #{templateId,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where activity_page_id = #{activityPageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.highteam.router.model.ActivityPage">
+    update rsvp_activity_page
+    set create_id = #{createId,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      link_address = #{linkAddress,jdbcType=VARCHAR},
+      activity_info_id = #{activityInfoId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      page_type = #{pageType,jdbcType=VARCHAR},
+      page_type_name = #{pageTypeName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      template_id = #{templateId,jdbcType=LONGVARCHAR}
+    where activity_page_id = #{activityPageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.ActivityPage">
+    update rsvp_activity_page
+    set create_id = #{createId,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      link_address = #{linkAddress,jdbcType=VARCHAR},
+      activity_info_id = #{activityInfoId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      page_type = #{pageType,jdbcType=VARCHAR},
+      page_type_name = #{pageTypeName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where activity_page_id = #{activityPageId,jdbcType=INTEGER}
+  </update>
+  <sql id="selectPageList_Sql_Condition">
+    <where>
+      1=1
+    </where>
+  </sql>
+  <select id="selectPageListByParam" parameterType="com.highteam.router.common.m.PageParam" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from rsvp_activity_page
+    <include refid="selectPageList_Sql_Condition"/>
+    order by create_time
+    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+  </select>
+  <select id="selectPageListCount" parameterType="com.highteam.router.common.m.PageParam" resultType="int">
+    select
+    count(*)
+    from rsvp_activity_page
+    <include refid="selectPageList_Sql_Condition"/>
+  </select>
+</mapper>

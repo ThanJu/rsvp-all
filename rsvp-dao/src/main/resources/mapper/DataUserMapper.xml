@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.DataUserMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.DataUser">
+    <id column="data_user_id" jdbcType="INTEGER" property="dataUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="activity_info_id" jdbcType="INTEGER" property="activityInfoId" />
+    <result column="weixin_id" jdbcType="VARCHAR" property="weixinId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    data_user_id, create_time, activity_info_id, weixin_id, user_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rsvp_data_user
+    where data_user_id = #{dataUserId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_data_user
+    where data_user_id = #{dataUserId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.DataUser">
+    insert into rsvp_data_user (data_user_id, create_time, activity_info_id, 
+      weixin_id, user_name)
+    values (#{dataUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{activityInfoId,jdbcType=INTEGER}, 
+      #{weixinId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.DataUser">
+    insert into rsvp_data_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dataUserId != null">
+        data_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="activityInfoId != null">
+        activity_info_id,
+      </if>
+      <if test="weixinId != null">
+        weixin_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dataUserId != null">
+        #{dataUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityInfoId != null">
+        #{activityInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="weixinId != null">
+        #{weixinId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.DataUser">
+    update rsvp_data_user
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityInfoId != null">
+        activity_info_id = #{activityInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="weixinId != null">
+        weixin_id = #{weixinId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where data_user_id = #{dataUserId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.DataUser">
+    update rsvp_data_user
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      activity_info_id = #{activityInfoId,jdbcType=INTEGER},
+      weixin_id = #{weixinId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR}
+    where data_user_id = #{dataUserId,jdbcType=INTEGER}
+  </update>
+</mapper>

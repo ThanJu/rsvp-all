@@ -1,0 +1,9 @@
+publicOssConfig:
+  endpoint:
+  endpoint_internal:
+  accessKeyId:
+  accessKeySecret:
+  bucketName:
+  accessEndpoint:
+  rootPath:
+  sign:

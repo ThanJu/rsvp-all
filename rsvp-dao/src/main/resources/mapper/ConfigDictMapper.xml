@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.ConfigDictMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.ConfigDict">
+    <id column="page_type_id" jdbcType="INTEGER" property="pageTypeId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="tree_level" jdbcType="INTEGER" property="treeLevel" />
+    <result column="tree_order" jdbcType="INTEGER" property="treeOrder" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="status_name" jdbcType="VARCHAR" property="statusName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    page_type_id, create_time, type_name, description, parent_id, tree_level, tree_order, 
+    status, status_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rsvp_config_dict
+    where page_type_id = #{pageTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_config_dict
+    where page_type_id = #{pageTypeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.ConfigDict">
+    insert into rsvp_config_dict (page_type_id, create_time, type_name, 
+      description, parent_id, tree_level, 
+      tree_order, status, status_name
+      )
+    values (#{pageTypeId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{typeName,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{treeLevel,jdbcType=INTEGER}, 
+      #{treeOrder,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{statusName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.ConfigDict">
+    insert into rsvp_config_dict
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pageTypeId != null">
+        page_type_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="typeName != null">
+        type_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="treeLevel != null">
+        tree_level,
+      </if>
+      <if test="treeOrder != null">
+        tree_order,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="statusName != null">
+        status_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pageTypeId != null">
+        #{pageTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="treeLevel != null">
+        #{treeLevel,jdbcType=INTEGER},
+      </if>
+      <if test="treeOrder != null">
+        #{treeOrder,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusName != null">
+        #{statusName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.ConfigDict">
+    update rsvp_config_dict
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeName != null">
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="treeLevel != null">
+        tree_level = #{treeLevel,jdbcType=INTEGER},
+      </if>
+      <if test="treeOrder != null">
+        tree_order = #{treeOrder,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusName != null">
+        status_name = #{statusName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where page_type_id = #{pageTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.ConfigDict">
+    update rsvp_config_dict
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      tree_level = #{treeLevel,jdbcType=INTEGER},
+      tree_order = #{treeOrder,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      status_name = #{statusName,jdbcType=VARCHAR}
+    where page_type_id = #{pageTypeId,jdbcType=INTEGER}
+  </update>
+  <sql id="selectPageList_Sql_Condition">
+    <where>
+      1=1
+    </where>
+  </sql>
+  <select id="selectPageListByParam" parameterType="com.highteam.router.common.m.PageParam" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from rsvp_config_dict
+    <include refid="selectPageList_Sql_Condition"/>
+    order by create_time
+    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+  </select>
+  <select id="selectPageListCount" parameterType="com.highteam.router.common.m.PageParam" resultType="int">
+    select
+    count(*)
+    from rsvp_config_dict
+    <include refid="selectPageList_Sql_Condition"/>
+  </select>
+</mapper>

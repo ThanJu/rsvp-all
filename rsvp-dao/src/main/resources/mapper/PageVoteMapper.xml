@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.PageVoteMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.PageVote">
+    <id column="page_vote_id" jdbcType="INTEGER" property="pageVoteId" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="page_template_id" jdbcType="INTEGER" property="pageTemplateId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="order" jdbcType="INTEGER" property="order" />
+    <result column="cover_image" jdbcType="VARCHAR" property="coverImage" />
+    <result column="link_address" jdbcType="VARCHAR" property="linkAddress" />
+    <result column="vote_count" jdbcType="INTEGER" property="voteCount" />
+    <result column="ranking" jdbcType="INTEGER" property="ranking" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    page_vote_id, create_id, create_name, create_time, page_template_id, title, content, 
+    order, cover_image, link_address, vote_count, ranking
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rsvp_page_vote
+    where page_vote_id = #{pageVoteId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_page_vote
+    where page_vote_id = #{pageVoteId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.PageVote">
+    insert into rsvp_page_vote (page_vote_id, create_id, create_name, 
+      create_time, page_template_id, title, 
+      content, order, cover_image, 
+      link_address, vote_count, ranking
+      )
+    values (#{pageVoteId,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{pageTemplateId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, #{coverImage,jdbcType=VARCHAR}, 
+      #{linkAddress,jdbcType=VARCHAR}, #{voteCount,jdbcType=INTEGER}, #{ranking,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.PageVote">
+    insert into rsvp_page_vote
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pageVoteId != null">
+        page_vote_id,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="order != null">
+        order,
+      </if>
+      <if test="coverImage != null">
+        cover_image,
+      </if>
+      <if test="linkAddress != null">
+        link_address,
+      </if>
+      <if test="voteCount != null">
+        vote_count,
+      </if>
+      <if test="ranking != null">
+        ranking,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pageVoteId != null">
+        #{pageVoteId,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        #{pageTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null">
+        #{order,jdbcType=INTEGER},
+      </if>
+      <if test="coverImage != null">
+        #{coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="linkAddress != null">
+        #{linkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="voteCount != null">
+        #{voteCount,jdbcType=INTEGER},
+      </if>
+      <if test="ranking != null">
+        #{ranking,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.PageVote">
+    update rsvp_page_vote
+    <set>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id = #{pageTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null">
+        order = #{order,jdbcType=INTEGER},
+      </if>
+      <if test="coverImage != null">
+        cover_image = #{coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="linkAddress != null">
+        link_address = #{linkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="voteCount != null">
+        vote_count = #{voteCount,jdbcType=INTEGER},
+      </if>
+      <if test="ranking != null">
+        ranking = #{ranking,jdbcType=INTEGER},
+      </if>
+    </set>
+    where page_vote_id = #{pageVoteId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.PageVote">
+    update rsvp_page_vote
+    set create_id = #{createId,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      page_template_id = #{pageTemplateId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      order = #{order,jdbcType=INTEGER},
+      cover_image = #{coverImage,jdbcType=VARCHAR},
+      link_address = #{linkAddress,jdbcType=VARCHAR},
+      vote_count = #{voteCount,jdbcType=INTEGER},
+      ranking = #{ranking,jdbcType=INTEGER}
+    where page_vote_id = #{pageVoteId,jdbcType=INTEGER}
+  </update>
+</mapper>

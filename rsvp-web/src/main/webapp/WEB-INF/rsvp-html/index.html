@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>RSVP系统 - HighTeam旗下产品</title>
+
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+<section id="container">
+    <header class="header black-bg">
+        <div class="sidebar-toggle-box">
+            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="隐藏导航"></div>
+        </div>
+        <a href="index.html" class="logo"><b>RSVP系统</b>|<b><span>HighTeam 旗下产品</span></b></a>
+        <div class="top-menu">
+            <ul class="nav pull-right top-menu">
+                <li><a class="logout" href="login.html">退出</a></li>
+            </ul>
+        </div>
+    </header>
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a>
+                </p>
+                <h5 class="centered">管理员</h5>
+                <li class="sub-menu" data="activity-list.html">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-th"></i>
+                        <span>管理</span>
+                    </a>
+                </li>
+                <li class="sub-menu" data="setting.html">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-cogs"></i>
+                        <span>设置</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <section id="main-content">
+    </section>
+</section>
+<script src="lib/jquery/jquery.min.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="lib/jquery.nicescroll.js"></script>
+<script src="lib/common-scripts.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#main-content').load("activity-list.html");
+    });
+
+    $('.sub-menu').click(function (e) {
+
+        var url = $(this).attr('data');
+        //  console.log(url);
+        $('#main-content').load(url);
+    });
+</script>
+</body>
+
+</html>

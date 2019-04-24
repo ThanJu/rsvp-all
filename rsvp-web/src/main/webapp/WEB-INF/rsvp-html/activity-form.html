@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP系统 - HighTeam旗下产品</title>
+
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap-fileupload/bootstrap-fileupload.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap-datetimepicker/datertimepicker.css"/>
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+<section id="container">
+    <section class="wrapper">
+        <ul class="breadcrumb skip">
+            <li><a href="javascript:void(0)" data="activity-list.html">活动列表</a></li>
+            <li class="active">新建活动</li>
+        </ul>
+        <div class="row mt">
+            <form class="form-horizontal style-form" role="form" action="contactform/contactform.php" method="POST">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <h4 class="mb">活动信息</h4>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">活动标题</label>
+                        <div class="col-sm-10">
+                            <input type="name" name="title" class="form-control" id="title" placeholder="请输入活动标题，限制20个字"
+                                   data-rule="minlen:4" data-msg="请输入活动标题，限制20个字">
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">参会人数</label>
+                        <div class="col-sm-10">
+                            <input type="email" name="peopleNumber" class="form-control" id="peopleNumber"
+                                   placeholder="请输入参会预计人数" data-rule="email" data-msg="请输入参会预计人数">
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">活动时间</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-large" data-date="01/01/2014" data-date-format="mm/dd/yyyy">
+                                <input size="16" type="text" value="" readonly="" class="form_datetime form-control"
+                                       name="timeStart" id="timeStart" placeholder="活动开始时间">
+                                <span class="input-group-addon">To</span>
+                                <input size="16" type="text" value="" readonly="" class="form_datetime form-control"
+                                       name="timeEnd" id="timeEnd" placeholder="活动结束时间">
+                                <div class="validate"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">活动地点</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="address" class="form-control" id="address"
+                                   placeholder="活动地点-换地址控件" data-rule="minlen:4"
+                                   data-msg="">
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">主办方</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="sponsorName" class="form-control" id="sponsorName"
+                                   placeholder="主办方" data-rule="minlen:4"
+                                   data-msg="请输入主办方名称，限制20个字">
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">联系人姓名</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contactPersonName" class="form-control" id="contactPersonName"
+                                   placeholder="联系人姓名" data-rule="minlen:4"
+                                   data-msg="">
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">联系人电话</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contactPersonPhone" class="form-control"
+                                   id="contactPersonPhone"
+                                   placeholder="请输入联系人电话" data-rule="minlen:4"
+                                   data-msg="">
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">电子邮件</label>
+                        <div class="col-sm-10">
+                            <input type="email" name="contactPersonEmail" class="form-control"
+                                   id="contactPersonEmail"
+                                   placeholder="请输入电子邮件地址" data-rule="email" data-msg="请输入电子邮件地址">
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">收费方式</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="chargeType" id="chargeType" data-msg="必选">
+                                <option value="0">请选择</option>
+                                <option value="1">全部收费</option>
+                                <option value="2">全部免费</option>
+                                <option value="3">收费+免费</option>
+                            </select>
+                            <div class="validate"></div>
+                        </div>
+                    </div>
+
+                    <div class="loading"></div>
+                    <div class="error-message"></div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <h4 class="mb">其它信息</h4>
+                    <div class="form-group last">
+                        <label class="control-label col-md-3">活动头像图片信息</label>
+                        <div class="col-md-9">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                    <img src="img/no-image.png" alt=""/>
+                                </div>
+                                <div class="fileupload-preview fileupload-exists thumbnail"
+                                     style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                <div>
+                        <span class="btn btn-theme02 btn-file">
+                        <span class="fileupload-new"><i class="fa fa-paperclip"></i>选择图片</span>
+                        <span class="fileupload-exists"><i class="fa fa-undo"></i> 修改</span>
+                        <input type="file" class="default"/>
+                        </span>
+                                    <a href="advanced_form_components.html#" class="btn btn-theme04 fileupload-exists"
+                                       data-dismiss="fileupload"><i class="fa fa-trash-o"></i>删除</a>
+                                </div>
+                            </div>
+                            <span>
+                      </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-send col-sm-12" >
+                    <button type="button" class="btn btn-primary btn-lg btn-block" style="width: 50%;margin: 0 auto;">提&nbsp;&nbsp;交</button>
+                </div>
+            </form>
+        </div>
+
+    </section>
+</section>
+<script src="lib/jquery/jquery.min.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="lib/common-scripts.js"></script>
+<script src="lib/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+<script type="text/javascript" src="lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="lib/advanced-form-components.js"></script>
+
+</body>
+
+</html>

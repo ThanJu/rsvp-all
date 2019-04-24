@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.ActivitySignWayMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.ActivitySignWay">
+    <id column="sign_way_id" jdbcType="INTEGER" property="signWayId" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="activity_info_id" jdbcType="INTEGER" property="activityInfoId" />
+    <result column="way_name" jdbcType="VARCHAR" property="wayName" />
+    <result column="sign_type" jdbcType="INTEGER" property="signType" />
+    <result column="sign_type_name" jdbcType="VARCHAR" property="signTypeName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sign_way_id, create_id, create_name, create_time, activity_info_id, way_name, sign_type,
+    sign_type_name, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rsvp_activity_sign_way
+    where sign_way_id = #{signWayId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_activity_sign_way
+    where sign_way_id = #{signWayId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.ActivitySignWay">
+    insert into rsvp_activity_sign_way (sign_way_id, create_id, create_name,
+      create_time, activity_info_id, way_name, 
+      sign_type, sign_type_name, description
+      )
+    values (#{signWayId,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{activityInfoId,jdbcType=INTEGER}, #{wayName,jdbcType=VARCHAR}, 
+      #{signType,jdbcType=INTEGER}, #{signTypeName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.ActivitySignWay">
+    insert into rsvp_activity_sign_way
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="signWayId != null">
+        sign_way_id,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="activityInfoId != null">
+        activity_info_id,
+      </if>
+      <if test="wayName != null">
+        way_name,
+      </if>
+      <if test="signType != null">
+        sign_type,
+      </if>
+      <if test="signTypeName != null">
+        sign_type_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="signWayId != null">
+        #{signWayId,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityInfoId != null">
+        #{activityInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="wayName != null">
+        #{wayName,jdbcType=VARCHAR},
+      </if>
+      <if test="signType != null">
+        #{signType,jdbcType=INTEGER},
+      </if>
+      <if test="signTypeName != null">
+        #{signTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.ActivitySignWay">
+    update rsvp_activity_sign_way
+    <set>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityInfoId != null">
+        activity_info_id = #{activityInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="wayName != null">
+        way_name = #{wayName,jdbcType=VARCHAR},
+      </if>
+      <if test="signType != null">
+        sign_type = #{signType,jdbcType=INTEGER},
+      </if>
+      <if test="signTypeName != null">
+        sign_type_name = #{signTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sign_way_id = #{signWayId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.ActivitySignWay">
+    update rsvp_activity_sign_way
+    set create_id = #{createId,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      activity_info_id = #{activityInfoId,jdbcType=INTEGER},
+      way_name = #{wayName,jdbcType=VARCHAR},
+      sign_type = #{signType,jdbcType=INTEGER},
+      sign_type_name = #{signTypeName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where sign_way_id = #{signWayId,jdbcType=INTEGER}
+  </update>
+  <sql id="selectPageList_Sql_Condition">
+    <where>
+      1=1
+    </where>
+  </sql>
+  <select id="selectPageListByParam" parameterType="com.highteam.router.common.m.PageParam" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from rsvp_activity_sign_way
+    <include refid="selectPageList_Sql_Condition"/>
+    order by create_time
+    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+  </select>
+  <select id="selectPageListCount" parameterType="com.highteam.router.common.m.PageParam" resultType="int">
+    select
+    count(*)
+    from rsvp_activity_sign_way
+    <include refid="selectPageList_Sql_Condition"/>
+  </select>
+</mapper>

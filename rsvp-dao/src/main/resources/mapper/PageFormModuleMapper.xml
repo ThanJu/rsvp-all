@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.PageFormModuleMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.PageFormModule">
+    <id column="page_form_module_id" jdbcType="INTEGER" property="pageFormModuleId" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="page_template_id" jdbcType="VARCHAR" property="pageTemplateId" />
+    <result column="module_template_id" jdbcType="INTEGER" property="moduleTemplateId" />
+    <result column="module_type" jdbcType="INTEGER" property="moduleType" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="default_value" jdbcType="VARCHAR" property="defaultValue" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="not_null" jdbcType="BIT" property="notNull" />
+    <result column="font" jdbcType="VARCHAR" property="font" />
+    <result column="border" jdbcType="VARCHAR" property="border" />
+    <result column="event" jdbcType="VARCHAR" property="event" />
+    <result column="placeholder" jdbcType="VARCHAR" property="placeholder" />
+    <result column="extend" jdbcType="VARCHAR" property="extend" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    page_form_module_id, create_id, create_name, create_time, page_template_id, module_template_id, 
+    module_type, id, title, default_value, description, not_null, font, border, event, 
+    placeholder, extend
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rsvp_page_form_module
+    where page_form_module_id = #{pageFormModuleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_page_form_module
+    where page_form_module_id = #{pageFormModuleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.PageFormModule">
+    insert into rsvp_page_form_module (page_form_module_id, create_id, create_name, 
+      create_time, page_template_id, module_template_id, 
+      module_type, id, title, 
+      default_value, description, not_null, 
+      font, border, event, 
+      placeholder, extend)
+    values (#{pageFormModuleId,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{pageTemplateId,jdbcType=VARCHAR}, #{moduleTemplateId,jdbcType=INTEGER}, 
+      #{moduleType,jdbcType=INTEGER}, #{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{defaultValue,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{notNull,jdbcType=BIT}, 
+      #{font,jdbcType=VARCHAR}, #{border,jdbcType=VARCHAR}, #{event,jdbcType=VARCHAR}, 
+      #{placeholder,jdbcType=VARCHAR}, #{extend,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.PageFormModule">
+    insert into rsvp_page_form_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pageFormModuleId != null">
+        page_form_module_id,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id,
+      </if>
+      <if test="moduleTemplateId != null">
+        module_template_id,
+      </if>
+      <if test="moduleType != null">
+        module_type,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="defaultValue != null">
+        default_value,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="notNull != null">
+        not_null,
+      </if>
+      <if test="font != null">
+        font,
+      </if>
+      <if test="border != null">
+        border,
+      </if>
+      <if test="event != null">
+        event,
+      </if>
+      <if test="placeholder != null">
+        placeholder,
+      </if>
+      <if test="extend != null">
+        extend,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pageFormModuleId != null">
+        #{pageFormModuleId,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        #{pageTemplateId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleTemplateId != null">
+        #{moduleTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="moduleType != null">
+        #{moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultValue != null">
+        #{defaultValue,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="notNull != null">
+        #{notNull,jdbcType=BIT},
+      </if>
+      <if test="font != null">
+        #{font,jdbcType=VARCHAR},
+      </if>
+      <if test="border != null">
+        #{border,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null">
+        #{event,jdbcType=VARCHAR},
+      </if>
+      <if test="placeholder != null">
+        #{placeholder,jdbcType=VARCHAR},
+      </if>
+      <if test="extend != null">
+        #{extend,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.PageFormModule">
+    update rsvp_page_form_module
+    <set>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id = #{pageTemplateId,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleTemplateId != null">
+        module_template_id = #{moduleTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="moduleType != null">
+        module_type = #{moduleType,jdbcType=INTEGER},
+      </if>
+      <if test="id != null">
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultValue != null">
+        default_value = #{defaultValue,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="notNull != null">
+        not_null = #{notNull,jdbcType=BIT},
+      </if>
+      <if test="font != null">
+        font = #{font,jdbcType=VARCHAR},
+      </if>
+      <if test="border != null">
+        border = #{border,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null">
+        event = #{event,jdbcType=VARCHAR},
+      </if>
+      <if test="placeholder != null">
+        placeholder = #{placeholder,jdbcType=VARCHAR},
+      </if>
+      <if test="extend != null">
+        extend = #{extend,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where page_form_module_id = #{pageFormModuleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.PageFormModule">
+    update rsvp_page_form_module
+    set create_id = #{createId,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      page_template_id = #{pageTemplateId,jdbcType=VARCHAR},
+      module_template_id = #{moduleTemplateId,jdbcType=INTEGER},
+      module_type = #{moduleType,jdbcType=INTEGER},
+      id = #{id,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      default_value = #{defaultValue,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      not_null = #{notNull,jdbcType=BIT},
+      font = #{font,jdbcType=VARCHAR},
+      border = #{border,jdbcType=VARCHAR},
+      event = #{event,jdbcType=VARCHAR},
+      placeholder = #{placeholder,jdbcType=VARCHAR},
+      extend = #{extend,jdbcType=VARCHAR}
+    where page_form_module_id = #{pageFormModuleId,jdbcType=INTEGER}
+  </update>
+</mapper>

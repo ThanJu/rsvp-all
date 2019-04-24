@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.PageResearchMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.PageResearch">
+    <id column="page_research_id" jdbcType="INTEGER" property="pageResearchId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="page_template_id" jdbcType="INTEGER" property="pageTemplateId" />
+    <result column="issue_type" jdbcType="INTEGER" property="issueType" />
+    <result column="select_type" jdbcType="INTEGER" property="selectType" />
+    <result column="research_content" jdbcType="VARCHAR" property="researchContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    page_research_id, create_time, page_template_id, issue_type, select_type, research_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rsvp_page_research
+    where page_research_id = #{pageResearchId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_page_research
+    where page_research_id = #{pageResearchId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.PageResearch">
+    insert into rsvp_page_research (page_research_id, create_time, page_template_id, 
+      issue_type, select_type, research_content
+      )
+    values (#{pageResearchId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{pageTemplateId,jdbcType=INTEGER}, 
+      #{issueType,jdbcType=INTEGER}, #{selectType,jdbcType=INTEGER}, #{researchContent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.PageResearch">
+    insert into rsvp_page_research
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pageResearchId != null">
+        page_research_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id,
+      </if>
+      <if test="issueType != null">
+        issue_type,
+      </if>
+      <if test="selectType != null">
+        select_type,
+      </if>
+      <if test="researchContent != null">
+        research_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pageResearchId != null">
+        #{pageResearchId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        #{pageTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="issueType != null">
+        #{issueType,jdbcType=INTEGER},
+      </if>
+      <if test="selectType != null">
+        #{selectType,jdbcType=INTEGER},
+      </if>
+      <if test="researchContent != null">
+        #{researchContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.PageResearch">
+    update rsvp_page_research
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id = #{pageTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="issueType != null">
+        issue_type = #{issueType,jdbcType=INTEGER},
+      </if>
+      <if test="selectType != null">
+        select_type = #{selectType,jdbcType=INTEGER},
+      </if>
+      <if test="researchContent != null">
+        research_content = #{researchContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where page_research_id = #{pageResearchId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.PageResearch">
+    update rsvp_page_research
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      page_template_id = #{pageTemplateId,jdbcType=INTEGER},
+      issue_type = #{issueType,jdbcType=INTEGER},
+      select_type = #{selectType,jdbcType=INTEGER},
+      research_content = #{researchContent,jdbcType=VARCHAR}
+    where page_research_id = #{pageResearchId,jdbcType=INTEGER}
+  </update>
+</mapper>

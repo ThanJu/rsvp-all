@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.AppLogMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.AppLog">
+    <id column="logId" jdbcType="BIGINT" property="logid" />
+    <result column="requestId" jdbcType="VARCHAR" property="requestid" />
+    <result column="headers" jdbcType="VARCHAR" property="headers" />
+    <result column="businessName" jdbcType="VARCHAR" property="businessname" />
+    <result column="responseCode" jdbcType="VARCHAR" property="responsecode" />
+    <result column="responseStatus" jdbcType="BIT" property="responsestatus" />
+    <result column="responseMsg" jdbcType="VARCHAR" property="responsemsg" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.highteam.router.model.AppLogWithBLOBs">
+    <result column="requestData" jdbcType="LONGVARCHAR" property="requestdata" />
+    <result column="responseData" jdbcType="LONGVARCHAR" property="responsedata" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    logId, requestId, headers, businessName, responseCode, responseStatus, responseMsg, 
+    createTime
+  </sql>
+  <sql id="Blob_Column_List">
+    requestData, responseData
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_log
+    where logId = #{logid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from app_log
+    where logId = #{logid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.AppLogWithBLOBs">
+    insert into app_log (logId, requestId, headers, 
+      businessName, responseCode, responseStatus, 
+      responseMsg, createTime, requestData, 
+      responseData)
+    values (#{logid,jdbcType=BIGINT}, #{requestid,jdbcType=VARCHAR}, #{headers,jdbcType=VARCHAR}, 
+      #{businessname,jdbcType=VARCHAR}, #{responsecode,jdbcType=VARCHAR}, #{responsestatus,jdbcType=BIT}, 
+      #{responsemsg,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{requestdata,jdbcType=LONGVARCHAR}, 
+      #{responsedata,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.AppLogWithBLOBs">
+    insert into app_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logid != null">
+        logId,
+      </if>
+      <if test="requestid != null">
+        requestId,
+      </if>
+      <if test="headers != null">
+        headers,
+      </if>
+      <if test="businessname != null">
+        businessName,
+      </if>
+      <if test="responsecode != null">
+        responseCode,
+      </if>
+      <if test="responsestatus != null">
+        responseStatus,
+      </if>
+      <if test="responsemsg != null">
+        responseMsg,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="requestdata != null">
+        requestData,
+      </if>
+      <if test="responsedata != null">
+        responseData,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logid != null">
+        #{logid,jdbcType=BIGINT},
+      </if>
+      <if test="requestid != null">
+        #{requestid,jdbcType=VARCHAR},
+      </if>
+      <if test="headers != null">
+        #{headers,jdbcType=VARCHAR},
+      </if>
+      <if test="businessname != null">
+        #{businessname,jdbcType=VARCHAR},
+      </if>
+      <if test="responsecode != null">
+        #{responsecode,jdbcType=VARCHAR},
+      </if>
+      <if test="responsestatus != null">
+        #{responsestatus,jdbcType=BIT},
+      </if>
+      <if test="responsemsg != null">
+        #{responsemsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="requestdata != null">
+        #{requestdata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="responsedata != null">
+        #{responsedata,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.AppLogWithBLOBs">
+    update app_log
+    <set>
+      <if test="requestid != null">
+        requestId = #{requestid,jdbcType=VARCHAR},
+      </if>
+      <if test="headers != null">
+        headers = #{headers,jdbcType=VARCHAR},
+      </if>
+      <if test="businessname != null">
+        businessName = #{businessname,jdbcType=VARCHAR},
+      </if>
+      <if test="responsecode != null">
+        responseCode = #{responsecode,jdbcType=VARCHAR},
+      </if>
+      <if test="responsestatus != null">
+        responseStatus = #{responsestatus,jdbcType=BIT},
+      </if>
+      <if test="responsemsg != null">
+        responseMsg = #{responsemsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="requestdata != null">
+        requestData = #{requestdata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="responsedata != null">
+        responseData = #{responsedata,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where logId = #{logid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.highteam.router.model.AppLogWithBLOBs">
+    update app_log
+    set requestId = #{requestid,jdbcType=VARCHAR},
+      headers = #{headers,jdbcType=VARCHAR},
+      businessName = #{businessname,jdbcType=VARCHAR},
+      responseCode = #{responsecode,jdbcType=VARCHAR},
+      responseStatus = #{responsestatus,jdbcType=BIT},
+      responseMsg = #{responsemsg,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      requestData = #{requestdata,jdbcType=LONGVARCHAR},
+      responseData = #{responsedata,jdbcType=LONGVARCHAR}
+    where logId = #{logid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.AppLog">
+    update app_log
+    set requestId = #{requestid,jdbcType=VARCHAR},
+      headers = #{headers,jdbcType=VARCHAR},
+      businessName = #{businessname,jdbcType=VARCHAR},
+      responseCode = #{responsecode,jdbcType=VARCHAR},
+      responseStatus = #{responsestatus,jdbcType=BIT},
+      responseMsg = #{responsemsg,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where logId = #{logid,jdbcType=BIGINT}
+  </update>
+</mapper>

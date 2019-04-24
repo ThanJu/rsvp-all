@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.ActivityInfoMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.ActivityInfo">
+    <id column="activity_info_id" jdbcType="INTEGER" property="activityInfoId" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="people_number" jdbcType="INTEGER" property="peoplenumber" />
+    <result column="time_start" jdbcType="TIMESTAMP" property="timeStart" />
+    <result column="time_end" jdbcType="TIMESTAMP" property="timeEnd" />
+    <result column="prove" jdbcType="INTEGER" property="prove" />
+    <result column="prove_name" jdbcType="VARCHAR" property="proveName" />
+    <result column="city" jdbcType="INTEGER" property="city" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="district" jdbcType="INTEGER" property="district" />
+    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="activity_type" jdbcType="INTEGER" property="activityType" />
+    <result column="activity_type_name" jdbcType="VARCHAR" property="activityTypeName" />
+    <result column="sponsor_name" jdbcType="VARCHAR" property="sponsorName" />
+    <result column="contact_person_name" jdbcType="VARCHAR" property="contactPersonName" />
+    <result column="contact_person_phone" jdbcType="VARCHAR" property="contactPersonPhone" />
+    <result column="contact_person_email" jdbcType="VARCHAR" property="contactPersonEmail" />
+    <result column="charge_type" jdbcType="INTEGER" property="chargeType" />
+    <result column="charge_type_name" jdbcType="VARCHAR" property="chargeTypeName" />
+    <result column="activity_image" jdbcType="VARCHAR" property="activityImage" />
+    <result column="activity_status" jdbcType="INTEGER" property="activityStatus" />
+    <result column="activity_status_name" jdbcType="VARCHAR" property="activityStatusName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    activity_info_id, create_id, create_name, create_time, title, people_number, time_start,
+    time_end, prove, prove_name, city, city_name, district, district_name, address, activity_type, 
+    activity_type_name, sponsor_name, contact_person_name, contact_person_phone, contact_person_email, 
+    charge_type, charge_type_name, activity_image, activity_status, activity_status_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rsvp_activity_info
+    where activity_info_id = #{activityInfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_activity_info
+    where activity_info_id = #{activityInfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.ActivityInfo">
+    insert into rsvp_activity_info (activity_info_id, create_id, create_name, 
+      create_time, title, people_number,
+      time_start, time_end, prove, 
+      prove_name, city, city_name, 
+      district, district_name, address, 
+      activity_type, activity_type_name, sponsor_name, 
+      contact_person_name, contact_person_phone, 
+      contact_person_email, charge_type, charge_type_name,
+      activity_image, activity_status, activity_status_name
+      )
+    values (#{activityInfoId,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, #{peoplenumber,jdbcType=INTEGER},
+      #{timeStart,jdbcType=TIMESTAMP}, #{timeEnd,jdbcType=TIMESTAMP}, #{prove,jdbcType=INTEGER}, 
+      #{proveName,jdbcType=VARCHAR}, #{city,jdbcType=INTEGER}, #{cityName,jdbcType=VARCHAR}, 
+      #{district,jdbcType=INTEGER}, #{districtName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{activityType,jdbcType=INTEGER}, #{activityTypeName,jdbcType=VARCHAR}, #{sponsorName,jdbcType=VARCHAR}, 
+      #{contactPersonName,jdbcType=VARCHAR}, #{contactPersonPhone,jdbcType=VARCHAR}, 
+      #{contactPersonEmail,jdbcType=VARCHAR}, #{chargeType,jdbcType=INTEGER}, #{chargeTypeName,jdbcType=VARCHAR},
+      #{activityImage,jdbcType=VARCHAR}, #{activityStatus,jdbcType=INTEGER}, #{activityStatusName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.ActivityInfo">
+    insert into rsvp_activity_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activityInfoId != null">
+        activity_info_id,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="peoplenumber != null">
+        people_number,
+      </if>
+      <if test="timeStart != null">
+        time_start,
+      </if>
+      <if test="timeEnd != null">
+        time_end,
+      </if>
+      <if test="prove != null">
+        prove,
+      </if>
+      <if test="proveName != null">
+        prove_name,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="district != null">
+        district,
+      </if>
+      <if test="districtName != null">
+        district_name,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="activityType != null">
+        activity_type,
+      </if>
+      <if test="activityTypeName != null">
+        activity_type_name,
+      </if>
+      <if test="sponsorName != null">
+        sponsor_name,
+      </if>
+      <if test="contactPersonName != null">
+        contact_person_name,
+      </if>
+      <if test="contactPersonPhone != null">
+        contact_person_phone,
+      </if>
+      <if test="contactPersonEmail != null">
+        contact_person_email,
+      </if>
+      <if test="chargeType != null">
+        charge_type,
+      </if>
+      <if test="chargeTypeName != null">
+        charge_type_name,
+      </if>
+      <if test="activityImage != null">
+        activity_image,
+      </if>
+      <if test="activityStatus != null">
+        activity_status,
+      </if>
+      <if test="activityStatusName != null">
+        activity_status_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activityInfoId != null">
+        #{activityInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="peoplenumber != null">
+        #{peoplenumber,jdbcType=INTEGER},
+      </if>
+      <if test="timeStart != null">
+        #{timeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeEnd != null">
+        #{timeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prove != null">
+        #{prove,jdbcType=INTEGER},
+      </if>
+      <if test="proveName != null">
+        #{proveName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        #{district,jdbcType=INTEGER},
+      </if>
+      <if test="districtName != null">
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="activityType != null">
+        #{activityType,jdbcType=INTEGER},
+      </if>
+      <if test="activityTypeName != null">
+        #{activityTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sponsorName != null">
+        #{sponsorName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPersonName != null">
+        #{contactPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPersonPhone != null">
+        #{contactPersonPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPersonEmail != null">
+        #{contactPersonEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeType != null">
+        #{chargeType,jdbcType=INTEGER},
+      </if>
+      <if test="chargeTypeName != null">
+        #{chargeTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityImage != null">
+        #{activityImage,jdbcType=VARCHAR},
+      </if>
+      <if test="activityStatus != null">
+        #{activityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="activityStatusName != null">
+        #{activityStatusName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.ActivityInfo">
+    update rsvp_activity_info
+    <set>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="peoplenumber != null">
+        people_number = #{peoplenumber,jdbcType=INTEGER},
+      </if>
+      <if test="timeStart != null">
+        time_start = #{timeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeEnd != null">
+        time_end = #{timeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prove != null">
+        prove = #{prove,jdbcType=INTEGER},
+      </if>
+      <if test="proveName != null">
+        prove_name = #{proveName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        district = #{district,jdbcType=INTEGER},
+      </if>
+      <if test="districtName != null">
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="activityType != null">
+        activity_type = #{activityType,jdbcType=INTEGER},
+      </if>
+      <if test="activityTypeName != null">
+        activity_type_name = #{activityTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sponsorName != null">
+        sponsor_name = #{sponsorName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPersonName != null">
+        contact_person_name = #{contactPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPersonPhone != null">
+        contact_person_phone = #{contactPersonPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPersonEmail != null">
+        contact_person_email = #{contactPersonEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeType != null">
+        charge_type = #{chargeType,jdbcType=INTEGER},
+      </if>
+      <if test="chargeTypeName != null">
+        charge_type_name = #{chargeTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityImage != null">
+        activity_image = #{activityImage,jdbcType=VARCHAR},
+      </if>
+      <if test="activityStatus != null">
+        activity_status = #{activityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="activityStatusName != null">
+        activity_status_name = #{activityStatusName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where activity_info_id = #{activityInfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.ActivityInfo">
+    update rsvp_activity_info
+    set create_id = #{createId,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      people_number = #{peoplenumber,jdbcType=INTEGER},
+      time_start = #{timeStart,jdbcType=TIMESTAMP},
+      time_end = #{timeEnd,jdbcType=TIMESTAMP},
+      prove = #{prove,jdbcType=INTEGER},
+      prove_name = #{proveName,jdbcType=VARCHAR},
+      city = #{city,jdbcType=INTEGER},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      district = #{district,jdbcType=INTEGER},
+      district_name = #{districtName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      activity_type = #{activityType,jdbcType=INTEGER},
+      activity_type_name = #{activityTypeName,jdbcType=VARCHAR},
+      sponsor_name = #{sponsorName,jdbcType=VARCHAR},
+      contact_person_name = #{contactPersonName,jdbcType=VARCHAR},
+      contact_person_phone = #{contactPersonPhone,jdbcType=VARCHAR},
+      contact_person_email = #{contactPersonEmail,jdbcType=VARCHAR},
+      charge_type = #{chargeType,jdbcType=INTEGER},
+      charge_type_name = #{chargeTypeName,jdbcType=VARCHAR},
+      activity_image = #{activityImage,jdbcType=VARCHAR},
+      activity_status = #{activityStatus,jdbcType=INTEGER},
+      activity_status_name = #{activityStatusName,jdbcType=VARCHAR}
+    where activity_info_id = #{activityInfoId,jdbcType=INTEGER}
+  </update>
+<sql id="selectPageList_Sql_Condition">
+  <where>
+    1=1
+  </where>
+</sql>
+<select id="selectPageListByParam" parameterType="com.highteam.router.common.m.PageParam" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from rsvp_activity_info
+    <include refid="selectPageList_Sql_Condition"/>
+    order by create_time
+    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+</select>
+<select id="selectPageListCount" parameterType="com.highteam.router.common.m.PageParam" resultType="int">
+    select
+    count(*)
+    from rsvp_activity_info
+    <include refid="selectPageList_Sql_Condition"/>
+</select>
+</mapper>

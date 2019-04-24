@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <group>
+
+        <!--#OAuthToken  -->
+        <property name="authUrl" defaultValue="" description="授权地址" required="true" />
+        <property name="accessTokenKey" />
+        <property name="refeshTokenKey"/>
+        <property name="aesKey" />
+        <property name="domain" />
+        <property name="refeshTokenValidity" />
+        <property name="accessTokenValidity" />
+        <property name="secure"/>
+        <property name="caf" />
+        <property name="enableVcode"/>
+        <property name="ifLogging"/>
+        <property name="logService"/>
+        <!--jdbc  -->
+        <property name="jdbc_driverClassName"/>
+        <property name="jdbc_url" />
+        <property name="jdbc_username"/>
+        <property name="jdbc_password"/>
+        <!-- redis -->
+        <property name="redis_host"/>
+        <property name="redis_port" />
+        <property name="redis_pass"/>
+        <property name="redis_dbIndex"/>
+        <property name="redis_expiration"/>
+        <property name="redis_maxIdle" />
+        <property name="redis_maxActive"/>
+        <property name="redis_maxWait"/>
+        <property name="redis_testOnBorrow"/>
+
+    </group>
+    <script>
+        <generate template="WEB-INF/classes/conf/config.properties" charset="UTF-8"/>
+        <generate template="WEB-INF/classes/conf/jdbc.properties" charset="UTF-8"/>
+    </script>
+</config>

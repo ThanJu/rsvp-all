@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.PageTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.PageTemplate">
+    <id column="template_id" jdbcType="INTEGER" property="templateId" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="activity_info_id" jdbcType="INTEGER" property="activityInfoId" />
+    <result column="time_start" jdbcType="TIMESTAMP" property="timeStart" />
+    <result column="time_end" jdbcType="TIMESTAMP" property="timeEnd" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="template_file" jdbcType="VARCHAR" property="templateFile" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="status_name" jdbcType="VARCHAR" property="statusName" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.highteam.router.model.PageTemplate">
+    <result column="template_json" jdbcType="LONGVARCHAR" property="templateJson" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    template_id, create_id, create_name, create_time, activity_info_id, time_start, time_end, 
+    title, description, template_file, version, status, status_name
+  </sql>
+  <sql id="Blob_Column_List">
+    template_json
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from rsvp_page_template
+    where template_id = #{templateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_page_template
+    where template_id = #{templateId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.PageTemplate">
+    insert into rsvp_page_template (template_id, create_id, create_name, 
+      create_time, activity_info_id, time_start, 
+      time_end, title, description, 
+      template_file, version, status, 
+      status_name, template_json)
+    values (#{templateId,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{activityInfoId,jdbcType=INTEGER}, #{timeStart,jdbcType=TIMESTAMP}, 
+      #{timeEnd,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{templateFile,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{statusName,jdbcType=VARCHAR}, #{templateJson,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.PageTemplate">
+    insert into rsvp_page_template
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="templateId != null">
+        template_id,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="activityInfoId != null">
+        activity_info_id,
+      </if>
+      <if test="timeStart != null">
+        time_start,
+      </if>
+      <if test="timeEnd != null">
+        time_end,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="templateFile != null">
+        template_file,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="statusName != null">
+        status_name,
+      </if>
+      <if test="templateJson != null">
+        template_json,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="templateId != null">
+        #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityInfoId != null">
+        #{activityInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="timeStart != null">
+        #{timeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeEnd != null">
+        #{timeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="templateFile != null">
+        #{templateFile,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusName != null">
+        #{statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="templateJson != null">
+        #{templateJson,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.PageTemplate">
+    update rsvp_page_template
+    <set>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityInfoId != null">
+        activity_info_id = #{activityInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="timeStart != null">
+        time_start = #{timeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeEnd != null">
+        time_end = #{timeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="templateFile != null">
+        template_file = #{templateFile,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusName != null">
+        status_name = #{statusName,jdbcType=VARCHAR},
+      </if>
+      <if test="templateJson != null">
+        template_json = #{templateJson,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where template_id = #{templateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.highteam.router.model.PageTemplate">
+    update rsvp_page_template
+    set create_id = #{createId,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      activity_info_id = #{activityInfoId,jdbcType=INTEGER},
+      time_start = #{timeStart,jdbcType=TIMESTAMP},
+      time_end = #{timeEnd,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      template_file = #{templateFile,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      status_name = #{statusName,jdbcType=VARCHAR},
+      template_json = #{templateJson,jdbcType=LONGVARCHAR}
+    where template_id = #{templateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.PageTemplate">
+    update rsvp_page_template
+    set create_id = #{createId,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      activity_info_id = #{activityInfoId,jdbcType=INTEGER},
+      time_start = #{timeStart,jdbcType=TIMESTAMP},
+      time_end = #{timeEnd,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      template_file = #{templateFile,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      status_name = #{statusName,jdbcType=VARCHAR}
+    where template_id = #{templateId,jdbcType=INTEGER}
+  </update>
+</mapper>

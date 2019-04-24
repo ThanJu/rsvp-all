@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.DataSignMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.DataSign">
+    <id column="data_sign_id" jdbcType="INTEGER" property="dataSignId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="activity_info_id" jdbcType="INTEGER" property="activityInfoId" />
+    <result column="data_register_id" jdbcType="INTEGER" property="dataRegisterId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="sign_type" jdbcType="INTEGER" property="signType" />
+    <result column="sign_type_name" jdbcType="VARCHAR" property="signTypeName" />
+    <result column="keep_record" jdbcType="VARCHAR" property="keepRecord" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    data_sign_id, create_time, activity_info_id, data_register_id, user_name, sign_type, 
+    sign_type_name, keep_record
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rsvp_data_sign
+    where data_sign_id = #{dataSignId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_data_sign
+    where data_sign_id = #{dataSignId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.DataSign">
+    insert into rsvp_data_sign (data_sign_id, create_time, activity_info_id, 
+      data_register_id, user_name, sign_type, 
+      sign_type_name, keep_record)
+    values (#{dataSignId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{activityInfoId,jdbcType=INTEGER}, 
+      #{dataRegisterId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{signType,jdbcType=INTEGER}, 
+      #{signTypeName,jdbcType=VARCHAR}, #{keepRecord,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.DataSign">
+    insert into rsvp_data_sign
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dataSignId != null">
+        data_sign_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="activityInfoId != null">
+        activity_info_id,
+      </if>
+      <if test="dataRegisterId != null">
+        data_register_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="signType != null">
+        sign_type,
+      </if>
+      <if test="signTypeName != null">
+        sign_type_name,
+      </if>
+      <if test="keepRecord != null">
+        keep_record,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dataSignId != null">
+        #{dataSignId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityInfoId != null">
+        #{activityInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="dataRegisterId != null">
+        #{dataRegisterId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="signType != null">
+        #{signType,jdbcType=INTEGER},
+      </if>
+      <if test="signTypeName != null">
+        #{signTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="keepRecord != null">
+        #{keepRecord,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.DataSign">
+    update rsvp_data_sign
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityInfoId != null">
+        activity_info_id = #{activityInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="dataRegisterId != null">
+        data_register_id = #{dataRegisterId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="signType != null">
+        sign_type = #{signType,jdbcType=INTEGER},
+      </if>
+      <if test="signTypeName != null">
+        sign_type_name = #{signTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="keepRecord != null">
+        keep_record = #{keepRecord,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where data_sign_id = #{dataSignId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.DataSign">
+    update rsvp_data_sign
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      activity_info_id = #{activityInfoId,jdbcType=INTEGER},
+      data_register_id = #{dataRegisterId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      sign_type = #{signType,jdbcType=INTEGER},
+      sign_type_name = #{signTypeName,jdbcType=VARCHAR},
+      keep_record = #{keepRecord,jdbcType=VARCHAR}
+    where data_sign_id = #{dataSignId,jdbcType=INTEGER}
+  </update>
+  <sql id="selectPageList_Sql_Condition">
+    <where>
+      1=1
+    </where>
+  </sql>
+  <select id="selectPageListByParam" parameterType="com.highteam.router.common.m.PageParam" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from rsvp_data_sign
+    <include refid="selectPageList_Sql_Condition"/>
+    order by create_time
+    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+  </select>
+  <select id="selectPageListCount" parameterType="com.highteam.router.common.m.PageParam" resultType="int">
+    select
+    count(*)
+    from rsvp_data_sign
+    <include refid="selectPageList_Sql_Condition"/>
+  </select>
+</mapper>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.DataRegisterMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.DataRegister">
+    <id column="register_id" jdbcType="INTEGER" property="registerId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="page_template_id" jdbcType="INTEGER" property="pageTemplateId" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="weixin_id" jdbcType="VARCHAR" property="weixinId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="work_phone" jdbcType="VARCHAR" property="workPhone" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="prove" jdbcType="INTEGER" property="prove" />
+    <result column="prove_name" jdbcType="VARCHAR" property="proveName" />
+    <result column="city" jdbcType="INTEGER" property="city" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="district" jdbcType="INTEGER" property="district" />
+    <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    register_id, create_time, page_template_id, email, weixin_id, user_name, company_name, 
+    work_phone, position, description, prove, prove_name, city, city_name, district, 
+    district_name, address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rsvp_data_register
+    where register_id = #{registerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_data_register
+    where register_id = #{registerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.DataRegister">
+    insert into rsvp_data_register (register_id, create_time, page_template_id, 
+      email, weixin_id, user_name, 
+      company_name, work_phone, position, 
+      description, prove, prove_name, 
+      city, city_name, district, 
+      district_name, address)
+    values (#{registerId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{pageTemplateId,jdbcType=INTEGER}, 
+      #{email,jdbcType=VARCHAR}, #{weixinId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{workPhone,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{prove,jdbcType=INTEGER}, #{proveName,jdbcType=VARCHAR}, 
+      #{city,jdbcType=INTEGER}, #{cityName,jdbcType=VARCHAR}, #{district,jdbcType=INTEGER}, 
+      #{districtName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.DataRegister">
+    insert into rsvp_data_register
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="registerId != null">
+        register_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="weixinId != null">
+        weixin_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="workPhone != null">
+        work_phone,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="prove != null">
+        prove,
+      </if>
+      <if test="proveName != null">
+        prove_name,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="district != null">
+        district,
+      </if>
+      <if test="districtName != null">
+        district_name,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="registerId != null">
+        #{registerId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        #{pageTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinId != null">
+        #{weixinId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="workPhone != null">
+        #{workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="prove != null">
+        #{prove,jdbcType=INTEGER},
+      </if>
+      <if test="proveName != null">
+        #{proveName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        #{district,jdbcType=INTEGER},
+      </if>
+      <if test="districtName != null">
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.DataRegister">
+    update rsvp_data_register
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id = #{pageTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinId != null">
+        weixin_id = #{weixinId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="workPhone != null">
+        work_phone = #{workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="prove != null">
+        prove = #{prove,jdbcType=INTEGER},
+      </if>
+      <if test="proveName != null">
+        prove_name = #{proveName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        district = #{district,jdbcType=INTEGER},
+      </if>
+      <if test="districtName != null">
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where register_id = #{registerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.DataRegister">
+    update rsvp_data_register
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      page_template_id = #{pageTemplateId,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      weixin_id = #{weixinId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      work_phone = #{workPhone,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      prove = #{prove,jdbcType=INTEGER},
+      prove_name = #{proveName,jdbcType=VARCHAR},
+      city = #{city,jdbcType=INTEGER},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      district = #{district,jdbcType=INTEGER},
+      district_name = #{districtName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where register_id = #{registerId,jdbcType=INTEGER}
+  </update>
+  <sql id="selectPageList_Sql_Condition">
+    <where>
+      1=1
+    </where>
+  </sql>
+  <select id="selectPageListByParam" parameterType="com.highteam.router.common.m.PageParam" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from rsvp_data_register
+    <include refid="selectPageList_Sql_Condition"/>
+    order by create_time
+    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+  </select>
+  <select id="selectPageListCount" parameterType="com.highteam.router.common.m.PageParam" resultType="int">
+    select
+    count(*)
+    from rsvp_data_register
+    <include refid="selectPageList_Sql_Condition"/>
+  </select>
+</mapper>

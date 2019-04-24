@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.highteam.router.dao.DataVoteMapper">
+  <resultMap id="BaseResultMap" type="com.highteam.router.model.DataVote">
+    <id column="data_vote_id" jdbcType="INTEGER" property="dataVoteId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="page_template_id" jdbcType="INTEGER" property="pageTemplateId" />
+    <result column="data_regoster_id" jdbcType="INTEGER" property="dataRegosterId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="page_vote_id" jdbcType="INTEGER" property="pageVoteId" />
+    <result column="page_vote_title" jdbcType="VARCHAR" property="pageVoteTitle" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    data_vote_id, create_time, page_template_id, data_regoster_id, user_name, page_vote_id, 
+    page_vote_title
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rsvp_data_vote
+    where data_vote_id = #{dataVoteId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rsvp_data_vote
+    where data_vote_id = #{dataVoteId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.highteam.router.model.DataVote">
+    insert into rsvp_data_vote (data_vote_id, create_time, page_template_id, 
+      data_regoster_id, user_name, page_vote_id, 
+      page_vote_title)
+    values (#{dataVoteId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{pageTemplateId,jdbcType=INTEGER}, 
+      #{dataRegosterId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{pageVoteId,jdbcType=INTEGER}, 
+      #{pageVoteTitle,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.highteam.router.model.DataVote">
+    insert into rsvp_data_vote
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dataVoteId != null">
+        data_vote_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id,
+      </if>
+      <if test="dataRegosterId != null">
+        data_regoster_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="pageVoteId != null">
+        page_vote_id,
+      </if>
+      <if test="pageVoteTitle != null">
+        page_vote_title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dataVoteId != null">
+        #{dataVoteId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        #{pageTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="dataRegosterId != null">
+        #{dataRegosterId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="pageVoteId != null">
+        #{pageVoteId,jdbcType=INTEGER},
+      </if>
+      <if test="pageVoteTitle != null">
+        #{pageVoteTitle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.highteam.router.model.DataVote">
+    update rsvp_data_vote
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id = #{pageTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="dataRegosterId != null">
+        data_regoster_id = #{dataRegosterId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="pageVoteId != null">
+        page_vote_id = #{pageVoteId,jdbcType=INTEGER},
+      </if>
+      <if test="pageVoteTitle != null">
+        page_vote_title = #{pageVoteTitle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where data_vote_id = #{dataVoteId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.highteam.router.model.DataVote">
+    update rsvp_data_vote
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      page_template_id = #{pageTemplateId,jdbcType=INTEGER},
+      data_regoster_id = #{dataRegosterId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      page_vote_id = #{pageVoteId,jdbcType=INTEGER},
+      page_vote_title = #{pageVoteTitle,jdbcType=VARCHAR}
+    where data_vote_id = #{dataVoteId,jdbcType=INTEGER}
+  </update>
+</mapper>

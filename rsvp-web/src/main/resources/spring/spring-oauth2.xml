@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sec="http://www.springframework.org/schema/security" 
+	xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
+	xsi:schemaLocation="http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- 在单机模式下可以使用 -->
+	<!--<bean id="tokenStore"-->
+		<!--class="org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore" />-->
+
+	<!--redis储存token -->
+	<bean name="poolConfig" class="redis.clients.jedis.JedisPoolConfig" >
+		<property name="maxIdle" value="${redis_maxIdle}"/>
+		<property name="maxTotal" value="${redis_maxActive}"/>
+		<property name="maxWaitMillis" value="${redis_maxWait}"/>
+		<property name="testOnBorrow" value="${redis_testOnBorrow}"/>
+	</bean>
+	<bean name="redisPassword" class="org.springframework.data.redis.connection.RedisPassword">
+		<constructor-arg name="thePassword" value="${redis_pass}"/>
+	</bean>
+	<bean name="redisStandaloneConfiguration" class="org.springframework.data.redis.connection.RedisStandaloneConfiguration">
+		<property name="hostName" value="${redis_host}" />
+		<property name="port" value="${redis_port}" />
+		<property name="password" ref="redisPassword" />
+		<property name="database" value="${redis_dbIndex}" />
+	</bean>
+	<bean name="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="poolConfig" ref="poolConfig"/>
+		<constructor-arg name="standaloneConfig" ref="redisStandaloneConfiguration" />
+	</bean>
+	<bean id="tokenStore" class="com.highteam.router.oauth2.provider.InRedisTokenStore">
+		<constructor-arg name="connectionFactory" ref="jedisConnectionFactory"/>
+	</bean>
+
+	<bean id="tokenServices"
+		class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">
+		<property name="tokenStore" ref="tokenStore" />
+		<property name="supportRefreshToken" value="true" />
+		<property name="clientDetailsService" ref="clientDetailsService" />
+	</bean>
+
+	<bean id="oAuth2Config" class="com.highteam.router.oauth2.config.OAuth2Config">
+		<property name="authUrl" value="${authUrl}" />
+		<property name="accessTokenKey" value="${accessTokenKey}" />
+		<property name="refeshTokenKey" value="${refeshTokenKey}" />
+		<property name="aesKey" value="${aesKey}" />
+		<property name="domain" value="${domain}" />
+		<property name="refeshTokenValidity" value="${refeshTokenValidity}" />
+		<property name="accessTokenValidity" value="${accessTokenValidity}" />
+		<property name="secure" value="${secure}" />
+		<property name="enableVcode" value="${enableVcode}" />
+		<property name="homePage" value="/login"></property>
+		<property name="app" value="app"></property>
+		<property name="clientId" value="rsvp_web_manage"></property>
+		<property name="clientSecret" value=""></property>
+	</bean>
+	
+	<bean id="clientDetailsService"
+		class="com.highteam.router.oauth2.service.impl.OauthClientDetailService">
+		<property name="config" ref="oAuth2Config"></property>
+	</bean>
+	
+	
+	<bean id="oauth2ClientDetailsUserService" class="org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService">
+        <constructor-arg ref="clientDetailsService"/>
+    </bean>
+
+	<oauth2:resource-server id="b2bResourceFilter" resource-id="springsec" token-services-ref="tokenServices" entry-point-ref="oauth2AuthenticationEntryPoint" />
+	
+	<oauth2:authorization-server client-details-service-ref="clientDetailsService"
+		xmlns="http://www.springframework.org/schema/security/oauth2" token-services-ref="tokenServices"  request-validator-ref="oauth2RequestValidator">
+		<oauth2:authorization-code />
+		<oauth2:implicit />
+		<oauth2:refresh-token />
+		<oauth2:client-credentials />
+		<oauth2:password authentication-manager-ref="authenticationManager" />
+	</oauth2:authorization-server>
+	
+	<sec:authentication-manager alias="authenticationManager">  
+        <sec:authentication-provider ref="loginAuthenticationProvider">  
+        </sec:authentication-provider>  
+    </sec:authentication-manager>  
+    
+     <sec:authentication-manager id="oauth2AuthenticationManager">
+        <sec:authentication-provider user-service-ref="oauth2ClientDetailsUserService"/>
+    </sec:authentication-manager>
+    
+  
+    <bean id="loginAuthenticationProvider" class="com.highteam.router.oauth2.provider.CustomAuthenticationProvider"/>
+    
+    <bean id="clientCredentialsTokenEndpointFilter" class="org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter">
+        <property name="authenticationManager" ref="oauth2AuthenticationManager"/>
+    </bean>
+    
+    <bean id="oauth2AccessDeniedHandler" class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler">
+    	<property name="exceptionRenderer" ref="exceptionRender"/>
+    	<property name="exceptionTranslator" ref="exceptionTranslator"/>
+    </bean>
+    
+    <bean id="oauth2AuthenticationEntryPoint" class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
+    	<property name="exceptionRenderer" ref="exceptionRender"/>
+    	<property name="exceptionTranslator" ref="exceptionTranslator"/>
+    </bean>
+
+	<bean id="exceptionTranslator" class="com.highteam.router.oauth2.exception.DefaultWebResponseExceptionTranslator" />
+	
+    
+    <bean id="oauth2RequestValidator" class="com.highteam.router.oauth2.provider.CustomOAuth2RequestValidator" />
+    
+    
+    <bean id="exceptionRender" class="com.highteam.router.oauth2.exception.CommerceOAuth2ExceptionRenderer">
+    </bean>
+    
+   
+	<!-- 忽略JS\IMAGE\CSS等静态资源的请求认证 -->
+	<sec:http pattern="/rsvp/**" security="none" />
+    <sec:http pattern="/index.html" security="none" />
+    <sec:http pattern="/obs/**" security="none" />
+    <sec:http pattern="/oauth/revoke-token" security="none" />
+	<sec:http pattern="/oauth/generateVCode" security="none" />
+   
+    <sec:http pattern="/oauth/token" create-session="stateless" authentication-manager-ref="authenticationManager"
+          entry-point-ref="oauth2AuthenticationEntryPoint">
+        <sec:intercept-url pattern="/oauth/token" access="IS_AUTHENTICATED_FULLY"/>
+        <sec:anonymous enabled="false"/>
+        <sec:http-basic entry-point-ref="oauth2AuthenticationEntryPoint"/>
+        <sec:custom-filter ref="oauthUrlWrapperFilter"
+			before="CHANNEL_FILTER" />
+        <sec:custom-filter ref="clientCredentialsTokenEndpointFilter" before="BASIC_AUTH_FILTER"/>
+        <sec:access-denied-handler ref="oauth2AccessDeniedHandler"/>
+    </sec:http>
+    
+    
+    <bean id="oauthUrlWrapperFilter" class="com.highteam.router.oauth2.filter.OAuthUrlWrapperFilter"></bean>
+    
+    <sec:http pattern="/**" create-session="never" entry-point-ref="oauth2AuthenticationEntryPoint" access-decision-manager-ref="oauth2AccessDecisionManager">
+        <sec:anonymous enabled="false"/>
+        <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/>
+        <sec:custom-filter ref="b2bResourceFilter" before="PRE_AUTH_FILTER"/>
+        <sec:custom-filter ref="oauthUrlWrapperFilter"
+			before="CHANNEL_FILTER" />
+        <sec:access-denied-handler ref="oauth2AccessDeniedHandler"/>
+    </sec:http>
+    
+    <bean id="jacksonMessageConverter" class="com.highteam.router.oauth2.service.impl.JsonResponseStandardlizer">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+				<value>application/json; charset=UTF-8</value>
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="oauth2AccessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
+	    <constructor-arg>
+	        <list>
+	            <bean class="org.springframework.security.access.vote.RoleVoter"/>
+	            <bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+	        </list>
+	    </constructor-arg>
+	</bean>
+</beans>
