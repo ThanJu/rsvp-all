@@ -373,7 +373,6 @@ p img {
 .replyask-box {
     position: relative;
     overflow: hidden;
-    margin-top: 16px;
     font-size: 14px;
 }
 .replyask{
@@ -385,8 +384,10 @@ p img {
     background: #d6e2eb;
     font-size: 0;
     line-height: 0;
-    position: absolute;
     margin-left: 25px;
+}
+.replyask-box .replyask:first-child .replyask-line{
+    width: 0px;
 }
 .replyask .ask-supply img{
     display: inline-block;
