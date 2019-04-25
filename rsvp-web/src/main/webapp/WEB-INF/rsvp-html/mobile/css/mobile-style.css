@@ -33,6 +33,7 @@ header .btn-return {
     border: 0px;
     background: url(../img/mobile-icon/return.png) no-repeat;
     -webkit-background-size: 13px auto;
+    height: 20px;
 }
 
 .div-case {
@@ -239,15 +240,12 @@ p img {
 #activity-footer .col-xs-9 {
     padding: 10px 5px;
 }
-
 #activity-footer .col-xs-3 {
     padding: 10px 5px;
 }
-
 #activity-footer input {
     border: 1px #66CC00 solid;
 }
-
 #activity-footer span {
     float: right;
     margin: -30px 5px 0px 0px;
@@ -261,7 +259,21 @@ p img {
     background-color: #66CC00;
     border: 1px #66CC00 solid;
 }
-
+#user-verify-footer .col-xs-6 {
+    padding: 0px;
+}
+#user-verify-btn-return,#user-verify-btn-submit {
+    width: 100%;
+    background-color: #66CC00;
+    color: #fff;
+    border: 0px;
+    border-radius: 0px;
+    height: 40px;
+}
+#user-verify-btn-return {
+    background-color: #fff;
+    color: black;
+}
 #user-verify .div-case-1 {
     background: url(../img/user-verify-1.png) no-repeat;
     background-size: 100% auto; /*设置宽度100%，高度自动*/

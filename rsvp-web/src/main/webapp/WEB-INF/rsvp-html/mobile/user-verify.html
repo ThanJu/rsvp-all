@@ -13,52 +13,55 @@
 </head>
 
 <body>
-<header class="navbar-fixed-top"><input type="button" class="btn-return"/>奔驰活动</header>
+<header class="navbar-fixed-top"><input type="button" class="btn-return" onclick="assignSkip('index.html')"/>奔驰活动
+</header>
 <section id="container">
-    <div>
-        <section class="wrapper" id="user-verify">
-            <div class=" col-xs-12 div-case-1">
+    <section class="wrapper" id="user-verify">
+        <div class=" col-xs-12 div-case-1">
 
+        </div>
+        <div class=" col-xs-12 div-case-2">
+            <div class="icon-border"><img src="img/mobile-icon/verify-1.png"></div>
+        </div>
+        <div class="form-group col-xs-12">
+            <label class="col-xs-2 control-label">电话</label>
+            <div class="col-xs-10">
+                <input type="name" name="title" class="form-control" id="title" placeholder="必填,请输入您的姓名"
+                       data-rule="minlen:4" data-msg="必填,请输入您的姓名，限制20个字">
+                <div class="validate"></div>
             </div>
-            <div class=" col-xs-12 div-case-2">
-                <div class="icon-border"><img src="img/mobile-icon/verify-1.png"></div>
+        </div>
+        <div class="form-group col-xs-12">
+            <label class="col-xs-2 control-label">姓名</label>
+            <div class="col-xs-10">
+                <input type="name" name="title" class="form-control" id="title" placeholder="必填,请输入您的联系方式"
+                       data-rule="minlen:4" data-msg="必填,请输入您的联系方式，限制20个字">
+                <div class="validate"></div>
             </div>
-            <div class="form-group col-xs-12">
-                <label class="col-xs-2 control-label">电话</label>
-                <div class="col-xs-10">
-                    <input type="name" name="title" class="form-control" id="title" placeholder="必填,请输入您的姓名"
-                           data-rule="minlen:4" data-msg="必填,请输入您的姓名，限制20个字">
+        </div>
+        <div class="form-group col-xs-12">
+            <label class="col-xs-2 control-label">验证码</label>
+            <div class="col-xs-10">
+                <div class="col-xs-9">
+                    <input type="name" name="title" class="form-control" id="title" placeholder="必填,请查阅手机短信"
+                           data-rule="minlen:4" data-msg="请输入正确的手机验证码">
                     <div class="validate"></div>
                 </div>
+                <a class="col-xs-3 control-label">获取验证码</a>
             </div>
-            <div class="form-group col-xs-12">
-                <label class="col-xs-2 control-label">姓名</label>
-                <div class="col-xs-10">
-                    <input type="name" name="title" class="form-control" id="title" placeholder="必填,请输入您的联系方式"
-                           data-rule="minlen:4" data-msg="必填,请输入您的联系方式，限制20个字">
-                    <div class="validate"></div>
-                </div>
-            </div>
-            <div class="form-group col-xs-12">
-                <label class="col-xs-2 control-label">验证码</label>
-                <div class="col-xs-10">
-                    <div class="col-xs-9">
-                        <input type="name" name="title" class="form-control" id="title" placeholder="必填,请查阅手机短信"
-                               data-rule="minlen:4" data-msg="请输入正确的手机验证码">
-                        <div class="validate"></div>
-                    </div>
-                    <a class="col-xs-3 control-label">获取验证码</a>
-                </div>
-            </div>
-        </section>
-    </div>
+        </div>
+    </section>
 </section>
-<footer class="navbar-fixed-bottom" id="activity-footer">
+<footer class="navbar-fixed-bottom" id="user-verify-footer">
     <div class="col-xs-6">
-        <button type="submit" class="btn btn-default" id="user-verify-btn-return">返回</button>
+        <button type="submit" class="btn btn-default" id="user-verify-btn-return"
+                onclick="assignSkip('activity-apply.html')">返回
+        </button>
     </div>
     <div class="col-xs-6">
-        <button type="submit" class="btn btn-default" id="user-verify-btn-submit">提交</button>
+        <button type="submit" class="btn btn-default" id="user-verify-btn-submit"
+                onclick="assignSkip('apply-succeed.html')">提交
+        </button>
     </div>
 </footer>
 <script src="../lib/jquery/jquery.min.js"></script>
