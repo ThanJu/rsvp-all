@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 查询翻页活动列表
+ * 查询翻页字典列表
  * */
 @Service
 public class FetchConfigDictPageList extends AbstractRouteAdapater {

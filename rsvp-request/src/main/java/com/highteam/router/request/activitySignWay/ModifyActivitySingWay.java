@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 修改活动
+ * 修改签到方式
  */
 @Service
 public class ModifyActivitySingWay extends AbstractRouteAdapater {

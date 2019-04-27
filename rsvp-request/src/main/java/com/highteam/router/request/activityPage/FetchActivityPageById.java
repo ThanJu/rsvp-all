@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 通过id查询活动页面
+ * 通过id查询活动配置页面
  */
 @Service
 public class FetchActivityPageById extends AbstractRouteAdapater {

@@ -1,8 +1,4 @@
 @media (min-width: 980px) {
-    /*-----*/
-    .custom-bar-chart {
-        margin-bottom: 40px;
-    }
 
 }
 
@@ -15,12 +11,6 @@
     .mail-box .lg-side {
         width: 70%;
     }
-    /*-----*/
-    .custom-bar-chart {
-        margin-bottom: 40px;
-    }
-
-    /*chat room*/
 
     .chat-room aside {
         display: block;
@@ -288,11 +278,6 @@
 
     .mail-option .btn {
         margin-bottom: 0;
-    }
-
-    /*-----*/
-    .custom-bar-chart {
-        margin-bottom: 40px;
     }
 
     /*menu icon plus minus*/

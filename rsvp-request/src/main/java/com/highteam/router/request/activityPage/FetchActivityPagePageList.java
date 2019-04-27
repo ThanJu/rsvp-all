@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 查询可翻页活动页面列表
+ * 查询可翻页配置页面列表
  * */
 @Service
 public class FetchActivityPagePageList extends AbstractRouteAdapater {

@@ -37,6 +37,15 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<filter>
+		<filter-name>CROSFilter</filter-name>
+		<filter-class>com.highteam.router.core.AaFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CROSFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 
 	<!-- 日志记录 -->
 	<context-param>
@@ -70,6 +79,7 @@
 	
  	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
+
 	</welcome-file-list>
 
 </web-app>

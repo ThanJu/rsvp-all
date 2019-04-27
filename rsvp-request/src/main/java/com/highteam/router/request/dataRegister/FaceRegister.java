@@ -21,9 +21,9 @@ import java.util.Date;
 
 /**
  * 添加注册信息
- * */
+ */
 @Service
-public class AddDataRegister extends AbstractRouteAdapater {
+public class FaceRegister extends AbstractRouteAdapater {
     @Autowired
     private DataRegisterMapper dataRegisterMapper;
     @Autowired
@@ -38,29 +38,50 @@ public class AddDataRegister extends AbstractRouteAdapater {
 //                "channelType":1,"telephone":"17611030057",
 //                "faceImage":"http://bj.bcebos.com/v1/aip-web/BD99B264021943C2A7B328020484D37D?authorization=bce-auth-v1%2Ff86a2044998643b5abc89b59158bad6d%2F2019-04-27T20%3A36%3A59Z%2F-1%2F%2Fa02a50b82b3f4d89316cfe44e89a6e093d1bc3b83a239a42992e61249524f776"}
 
-        if (requestParam == null){
+        if (requestParam == null) {
             throw new BusinessException("请求数据为空");
-        }else {
+        } else {
+            DataRegister dataRegister = new DataRegister();
+            switch (requestParam.get("optType").toString()) {
+                case "1":
+                    //审核通过--执行添加注册信息操作
 
-            DataRegister dataRegister =new DataRegister();
-            dataRegister.setWorkPhone(requestParam.get("telephone").toString());
-            dataRegister.setUserName(requestParam.get("name").toString());
-            dataRegister.setCompanyName(requestParam.get("item1").toString());
-            dataRegister.setCreateTime(new Date());
+                    dataRegister.setWorkPhone(requestParam.get("telephone").toString());
+                    dataRegister.setUserName(requestParam.get("name").toString());
+                    dataRegister.setCompanyName(requestParam.get("item1").toString());
+                    dataRegister.setCreateTime(new Date());
 
-            transactionTemplate.execute(new TransactionCallbackWithoutResult() {
-                @Override
-                protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
-                    dataRegisterMapper.insertSelective(dataRegister);
-                }
-            });
+                    transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+                        @Override
+                        protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
+                            dataRegisterMapper.insertSelective(dataRegister);
+                        }
+                    });
+                    break;
+                case "2":
+                    //驳回---目前误操作
+                    break;
+                case "3":
+                    //删除--删除注册信息（修改注册状态）
+
+                    dataRegister.setCreateTime(new Date());
+                    dataRegister.setWorkPhone(requestParam.get("telephone").toString());
+
+                    transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+                        @Override
+                        protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
+                            dataRegisterMapper.updateByPhoneSelective(dataRegister);
+                        }
+                    });
+                    break;
+            }
         }
         return true;
     }
 
     @Override
     public String getRoutePath() {
-        return new RequestPath("dataRegister-dataRegister-addDataRegister").toString();
+        return new RequestPath("dataRegister-dataRegister-faceRegister").toString();
     }
 
     @Override

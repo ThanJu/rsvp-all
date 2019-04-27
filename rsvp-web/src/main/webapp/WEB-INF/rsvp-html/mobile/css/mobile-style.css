@@ -317,10 +317,12 @@ p img {
     padding-left: 0px;
     padding-right: 0px;
     font-weight: unset;
+    width: auto;
 }
 
 #user-verify .form-group .col-xs-10 .col-xs-3 {
     padding: 8px 3px;
+    width: auto;
 }
 
 #personal-mark {
@@ -370,7 +372,6 @@ p img {
     height: 20%;
  }
 #succeed .qy .img-div p img{
-    border: 1px #29272799 dashed;
 }
 #succeed-footer img{
     width: 30px;

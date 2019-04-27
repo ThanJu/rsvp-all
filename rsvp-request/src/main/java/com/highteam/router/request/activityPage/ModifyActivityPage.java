@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 修改活动页面信息
+ * 修改配置页面
  */
 @Service
 public class ModifyActivityPage extends AbstractRouteAdapater {

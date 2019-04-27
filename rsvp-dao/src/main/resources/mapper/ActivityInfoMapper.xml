@@ -7,7 +7,7 @@
     <result column="create_name" jdbcType="VARCHAR" property="createName" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="people_number" jdbcType="INTEGER" property="peoplenumber" />
+    <result column="people_number" jdbcType="INTEGER" property="peopleNumber" />
     <result column="time_start" jdbcType="TIMESTAMP" property="timeStart" />
     <result column="time_end" jdbcType="TIMESTAMP" property="timeEnd" />
     <result column="prove" jdbcType="INTEGER" property="prove" />
@@ -30,7 +30,7 @@
     <result column="activity_status_name" jdbcType="VARCHAR" property="activityStatusName" />
   </resultMap>
   <sql id="Base_Column_List">
-    activity_info_id, create_id, create_name, create_time, title, people_number, time_start,
+    activity_info_id, create_id, create_name, create_time, title, people_number, time_start, 
     time_end, prove, prove_name, city, city_name, district, district_name, address, activity_type, 
     activity_type_name, sponsor_name, contact_person_name, contact_person_phone, contact_person_email, 
     charge_type, charge_type_name, activity_image, activity_status, activity_status_name
@@ -47,23 +47,23 @@
   </delete>
   <insert id="insert" parameterType="com.highteam.router.model.ActivityInfo">
     insert into rsvp_activity_info (activity_info_id, create_id, create_name, 
-      create_time, title, people_number,
+      create_time, title, people_number, 
       time_start, time_end, prove, 
       prove_name, city, city_name, 
       district, district_name, address, 
       activity_type, activity_type_name, sponsor_name, 
       contact_person_name, contact_person_phone, 
-      contact_person_email, charge_type, charge_type_name,
+      contact_person_email, charge_type, charge_type_name, 
       activity_image, activity_status, activity_status_name
       )
     values (#{activityInfoId,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, #{peoplenumber,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, #{peopleNumber,jdbcType=INTEGER}, 
       #{timeStart,jdbcType=TIMESTAMP}, #{timeEnd,jdbcType=TIMESTAMP}, #{prove,jdbcType=INTEGER}, 
       #{proveName,jdbcType=VARCHAR}, #{city,jdbcType=INTEGER}, #{cityName,jdbcType=VARCHAR}, 
       #{district,jdbcType=INTEGER}, #{districtName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{activityType,jdbcType=INTEGER}, #{activityTypeName,jdbcType=VARCHAR}, #{sponsorName,jdbcType=VARCHAR}, 
       #{contactPersonName,jdbcType=VARCHAR}, #{contactPersonPhone,jdbcType=VARCHAR}, 
-      #{contactPersonEmail,jdbcType=VARCHAR}, #{chargeType,jdbcType=INTEGER}, #{chargeTypeName,jdbcType=VARCHAR},
+      #{contactPersonEmail,jdbcType=VARCHAR}, #{chargeType,jdbcType=INTEGER}, #{chargeTypeName,jdbcType=VARCHAR}, 
       #{activityImage,jdbcType=VARCHAR}, #{activityStatus,jdbcType=INTEGER}, #{activityStatusName,jdbcType=VARCHAR}
       )
   </insert>
@@ -85,7 +85,7 @@
       <if test="title != null">
         title,
       </if>
-      <if test="peoplenumber != null">
+      <if test="peopleNumber != null">
         people_number,
       </if>
       <if test="timeStart != null">
@@ -165,8 +165,8 @@
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="peoplenumber != null">
-        #{peoplenumber,jdbcType=INTEGER},
+      <if test="peopleNumber != null">
+        #{peopleNumber,jdbcType=INTEGER},
       </if>
       <if test="timeStart != null">
         #{timeStart,jdbcType=TIMESTAMP},
@@ -245,8 +245,8 @@
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="peoplenumber != null">
-        people_number = #{peoplenumber,jdbcType=INTEGER},
+      <if test="peopleNumber != null">
+        people_number = #{peopleNumber,jdbcType=INTEGER},
       </if>
       <if test="timeStart != null">
         time_start = #{timeStart,jdbcType=TIMESTAMP},
@@ -317,7 +317,7 @@
       create_name = #{createName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       title = #{title,jdbcType=VARCHAR},
-      people_number = #{peoplenumber,jdbcType=INTEGER},
+      people_number = #{peopleNumber,jdbcType=INTEGER},
       time_start = #{timeStart,jdbcType=TIMESTAMP},
       time_end = #{timeEnd,jdbcType=TIMESTAMP},
       prove = #{prove,jdbcType=INTEGER},
@@ -343,6 +343,9 @@
 <sql id="selectPageList_Sql_Condition">
   <where>
     1=1
+    <if test="model.activityStatus != null">
+      and activity_status = #{model.activityStatus,jdbcType=INTEGER}
+    </if>
   </where>
 </sql>
 <select id="selectPageListByParam" parameterType="com.highteam.router.common.m.PageParam" resultMap="BaseResultMap">

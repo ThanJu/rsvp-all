@@ -41,22 +41,24 @@ public class OAuth2AuthenServiceImpl implements OAuth2AuthenService {
         authInfo.setClientIp(map.get("clientIp"));
 
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserId(1);
         try {
 
             //手机验证码登录
             if ("phone".equals(authInfo.getAuthType())) {
                 //取手机号
                 //取验证码
+                userInfo.setUserId(1);
                 userInfo = loginService.phoneLogin(authInfo);
             }
             //二维码扫描登陆
             else if ("qrCode".equals(authInfo.getAuthType())) {
                 //qrCode
+                userInfo.setUserId(1);
                 userInfo = loginService.qrCodeLogin(authInfo);
             }
             //密码登陆
             else if("password".equals(authInfo.getAuthType())){
+                userInfo.setUserId(1);
                 authInfo.setLoginName(upToken.getPrincipal().toString());
                 authInfo.setPassword(upToken.getCredentials().toString());
                 userInfo = loginService.passwordLogin(authInfo);

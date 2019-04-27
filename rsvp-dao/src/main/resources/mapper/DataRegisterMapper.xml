@@ -251,4 +251,58 @@
     from rsvp_data_register
     <include refid="selectPageList_Sql_Condition"/>
   </select>
+  <update id="updateByPhoneSelective" parameterType="com.highteam.router.model.DataRegister">
+    update rsvp_data_register
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pageTemplateId != null">
+        page_template_id = #{pageTemplateId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinId != null">
+        weixin_id = #{weixinId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="workPhone != null">
+        work_phone = #{workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="prove != null">
+        prove = #{prove,jdbcType=INTEGER},
+      </if>
+      <if test="proveName != null">
+        prove_name = #{proveName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        district = #{district,jdbcType=INTEGER},
+      </if>
+      <if test="districtName != null">
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where work_phone = #{workPhone,jdbcType=INTEGER}
+  </update>
 </mapper>

@@ -21,4 +21,8 @@ public interface DataRegisterMapper {
     List<DataRegister> selectPageListByParam(PageParam<DataRegister> pageParam);
 
     int selectPageListCount(PageParam<DataRegister> pageParam);
+
+    int updateByPhoneSelective(DataRegister record);
+
+
 }

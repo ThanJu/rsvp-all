@@ -1,17 +1,17 @@
 package com.highteam.router.enums;
 
-public enum ActivityInfoStatusEnum {
+public enum ActivityChargeTypeEnum {
 
-    NOT_START(1,"未开始"),
-    LOADING(2,"进行中"),
-    FINISHED(2,"已结束");
+    CHARGE(1,"全部收费"),
+    FREE_CHARGE(2,"全部免费"),
+    CHARGE_FREE_CHARGE(3,"收费+免费");
 
     private Integer code;
 
     private String name;
 
 
-    ActivityInfoStatusEnum(Integer code, String name){
+    ActivityChargeTypeEnum(Integer code, String name){
         this.code = code;
         this.name = name;
     }
@@ -25,7 +25,7 @@ public enum ActivityInfoStatusEnum {
     }
 
     public static String getName(Integer code){
-        ActivityInfoStatusEnum[] activityInfoStatusEnums = ActivityInfoStatusEnum.values();
+        ActivityChargeTypeEnum[] activityInfoStatusEnums = ActivityChargeTypeEnum.values();
         for(int i = 0; i < activityInfoStatusEnums.length;i++){
             if(activityInfoStatusEnums[i].code.equals(code)){
                 return activityInfoStatusEnums[i].name;

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.highteam.router.api.AbstractRouteAdapater;
 import com.highteam.router.common.m.BusinessException;
 import com.highteam.router.dao.ActivityInfoMapper;
+import com.highteam.router.enums.ActivityChargeTypeEnum;
 import com.highteam.router.enums.ActivityInfoStatusEnum;
 import com.highteam.router.m.AppRequest;
 import com.highteam.router.m.RequestPath;
@@ -44,7 +45,9 @@ public class AddActivityInfo extends AbstractRouteAdapater {
             activityInfo.setCreateTime(currentDate);
             activityInfo.setActivityStatus(ActivityInfoStatusEnum.NOT_START.getCode());
             activityInfo.setActivityStatusName(ActivityInfoStatusEnum.NOT_START.getName());
-
+            if (activityInfo.getChargeType()!=null&&activityInfo.getChargeType()!=0){
+                activityInfo.setChargeTypeName(ActivityChargeTypeEnum.getName(activityInfo.getChargeType()));
+            }
             transactionTemplate.execute(new TransactionCallbackWithoutResult() {
                 @Override
                 protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {

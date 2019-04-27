@@ -9,6 +9,8 @@
   <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
   <link href="css/style.css" rel="stylesheet">
+  <script src="lib/jquery/jquery.min.js"/>
+
 
 </head>
 
@@ -39,7 +41,7 @@
                 <td>
                   <div class="cover"><img src="img/u50.png"></div>
                   <div class="synopsis skip">
-                    <h4><a href="javascript:void(0)" data="activity-form.html#">智能硬件会议</a></h4>
+                    <h4><a href="activity-form.html#">智能硬件会议</a></h4>
                     <ul>
                       <li>时间：2019-04-11 00:00 至 2019-04-30 23:59</li>
                       <li>地点：北京市，朝阳区，朝阳公园</li>
@@ -135,7 +137,7 @@
                 <td>
                   <div class="cover"><img src="img/u50.png"></div>
                   <div class="synopsis skip">
-                    <h4><a href="javascript:void(0)" data="activity-form.html">智能硬件会议--已结束</a></h4>
+                    <h4><a href="activity-form.html">智能硬件会议--已结束</a></h4>
                     <ul>
                       <li>时间：2019-04-11 00:00 至 2019-04-30 23:59</li>
                       <li>地点：北京市，朝阳区，朝阳公园</li>
@@ -169,15 +171,16 @@
   </section>
 
 </section>
-<script src="lib/jquery/jquery.min.js"></script>
+
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/common-scripts.js"></script>
+<script src="js/commonApi.js"/>
 <script>
   $(function () {
     $('#activity-tab li:eq(0) a').tab('show');
 
     $('#add-activity').click(function(){
-      $('#main-content').load("activity-form.html");
+      location.replace("activity-form.html");
     });
   });
 </script>

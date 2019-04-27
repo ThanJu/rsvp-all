@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 查询翻页活动列表
+ * 查询翻页签到方式列表
  * */
 @Service
 public class FetchActivitySignWayPageList extends AbstractRouteAdapater {

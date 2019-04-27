@@ -9,7 +9,8 @@
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet">
-
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="js/commonApi.js"></script>
 
 </head>
 
@@ -29,7 +30,7 @@
     <aside>
         <div id="sidebar" class="nav-collapse ">
             <ul class="sidebar-menu" id="nav-accordion">
-                <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a>
+                <p class="centered"><a href=""><img src="img/ui-sam.jpg" class="img-circle" width="80"></a>
                 </p>
                 <h5 class="centered">管理员</h5>
                 <li class="sub-menu" data="activity-list.html">
@@ -48,23 +49,22 @@
         </div>
     </aside>
     <section id="main-content">
+        <iframe src="activity-list.html" id="main-iframe"></iframe>
     </section>
 </section>
-<script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/jquery.nicescroll.js"></script>
 <script src="lib/common-scripts.js"></script>
+<script src="js/activityInfo.js"></script>
+
 <script type="text/javascript">
     $(function () {
-        $('#main-content').load("activity-list.html");
-    });
-
-    $('.sub-menu').click(function (e) {
-
-        var url = $(this).attr('data');
-        //  console.log(url);
-        $('#main-content').load(url);
-    });
+        $('.sub-menu').click(function () {
+            var url = $(this).attr('data');
+            //  console.log(url);
+            $("#main-iframe").attr("src",url);
+        });
+    })
 </script>
 </body>
 

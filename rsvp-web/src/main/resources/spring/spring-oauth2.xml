@@ -116,6 +116,7 @@
     
    
 	<!-- 忽略JS\IMAGE\CSS等静态资源的请求认证 -->
+	<sec:http pattern="/dev-rsvp/**" security="none" />
 	<sec:http pattern="/rsvp/**" security="none" />
     <sec:http pattern="/index.html" security="none" />
     <sec:http pattern="/obs/**" security="none" />
@@ -132,10 +133,10 @@
         <sec:custom-filter ref="clientCredentialsTokenEndpointFilter" before="BASIC_AUTH_FILTER"/>
         <sec:access-denied-handler ref="oauth2AccessDeniedHandler"/>
     </sec:http>
-    
-    
+
+
     <bean id="oauthUrlWrapperFilter" class="com.highteam.router.oauth2.filter.OAuthUrlWrapperFilter"></bean>
-    
+
     <sec:http pattern="/**" create-session="never" entry-point-ref="oauth2AuthenticationEntryPoint" access-decision-manager-ref="oauth2AccessDecisionManager">
         <sec:anonymous enabled="false"/>
         <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/>

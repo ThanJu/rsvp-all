@@ -10,7 +10,13 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public UserInfo passwordLogin(CustomOAuth2AuthenticationInfo info) {
-        return null;
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserLoginName(info.getLoginName());
+        userInfo.setUserAccount(info.getLoginName());
+        userInfo.setUserRealName("王菜菜");
+        userInfo.setDeptName("信息化事业部");
+        userInfo.setCurCompanyName("科技互联股份有限公司");
+        return userInfo;
     }
 
     @Override

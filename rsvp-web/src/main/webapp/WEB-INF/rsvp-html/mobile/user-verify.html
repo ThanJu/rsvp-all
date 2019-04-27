@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<header class="navbar-fixed-top"><input type="button" class="btn-return" onclick="assignSkip('index.html')"/>奔驰活动
+<header class="navbar-fixed-top"><input type="button" class="btn-return" id="return_btn"/>奔驰活动
 </header>
 <section id="container">
     <section class="wrapper" id="user-verify">
@@ -34,7 +34,7 @@
         <div class="form-group col-xs-12">
             <label class="col-xs-2 control-label">姓名</label>
             <div class="col-xs-10">
-                <input type="name" name="title" class="form-control" id="title" placeholder="必填,请输入您的联系方式"
+                <input type="name" name="title" class="form-control" id="work_phone" placeholder="必填,请输入您的联系方式"
                        data-rule="minlen:4" data-msg="必填,请输入您的联系方式，限制20个字">
                 <div class="validate"></div>
             </div>
@@ -43,7 +43,7 @@
             <label class="col-xs-2 control-label">验证码</label>
             <div class="col-xs-10">
                 <div class="col-xs-9">
-                    <input type="name" name="title" class="form-control" id="title" placeholder="必填,请查阅手机短信"
+                    <input type="name" name="title" class="form-control" id="vCode" placeholder="必填,请查阅手机短信"
                            data-rule="minlen:4" data-msg="请输入正确的手机验证码">
                     <div class="validate"></div>
                 </div>
@@ -55,13 +55,12 @@
 <footer class="navbar-fixed-bottom" id="user-verify-footer">
     <div class="col-xs-6">
         <button type="submit" class="btn btn-default" id="user-verify-btn-return"
-                onclick="assignSkip('activity-apply.html')">返回
+                onclick="assignSkip()">返回
         </button>
     </div>
     <div class="col-xs-6">
-        <button type="submit" class="btn btn-default" id="user-verify-btn-submit"
-                onclick="assignSkip('apply-succeed.html')">提交
-        </button>
+        <a href="apply-succeed.html"><button type="submit" class="btn btn-default" id="user-verify-btn-submit">提交
+        </button></a>
     </div>
 </footer>
 <script src="../lib/jquery/jquery.min.js"></script>

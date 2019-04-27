@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 通过id获取活动信息
+ * 通过id获取注册信息
  */
 @Service
 public class FetchDataRegisterById extends AbstractRouteAdapater {

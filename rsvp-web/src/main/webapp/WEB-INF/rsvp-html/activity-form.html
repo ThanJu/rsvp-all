@@ -8,8 +8,10 @@
 
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="lib/bootstrap-fileupload/bootstrap-fileupload.css"/>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap-datetimepicker/datertimepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap-datetimepicker/css/datetimepicker.css"/>
     <link href="css/style.css" rel="stylesheet">
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="js/commonApi.js"></script>
 
 </head>
 
@@ -17,11 +19,11 @@
 <section id="container">
     <section class="wrapper">
         <ul class="breadcrumb skip">
-            <li><a href="javascript:void(0)" data="activity-list.html">活动列表</a></li>
+            <li><a href="activity-list.html">活动列表</a></li>
             <li class="active">新建活动</li>
         </ul>
         <div class="row mt">
-            <form class="form-horizontal style-form" role="form" action="contactform/contactform.php" method="POST">
+            <form class="form-horizontal style-form" role="form" id="activity-form" method="POST">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <h4 class="mb">活动信息</h4>
 
@@ -104,10 +106,10 @@
                         <label class="col-sm-3 control-label">收费方式</label>
                         <div class="col-sm-10">
                             <select class="form-control" name="chargeType" id="chargeType" data-msg="必选">
-                                <option value="0">请选择</option>
-                                <option value="1">全部收费</option>
-                                <option value="2">全部免费</option>
-                                <option value="3">收费+免费</option>
+                                <option value=0>请选择</option>
+                                <option value=1>全部收费</option>
+                                <option value=2>全部免费</option>
+                                <option value=3>收费+免费</option>
                             </select>
                             <div class="validate"></div>
                         </div>
@@ -143,15 +145,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-send col-sm-12" >
-                    <button type="button" class="btn btn-primary btn-lg btn-block" style="width: 50%;margin: 0 auto;">提&nbsp;&nbsp;交</button>
+                <div class="form-send col-sm-12">
+                    <button type="button" class="btn btn-primary btn-lg btn-block" style="width: 50%;margin: 0 auto;" id="activity-submit">提&nbsp;&nbsp;交</button>
                 </div>
             </form>
         </div>
 
     </section>
 </section>
-<script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/common-scripts.js"></script>
 <script src="lib/jquery-ui-1.9.2.custom.min.js"></script>
@@ -159,6 +160,63 @@
 <script type="text/javascript" src="lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
 <script src="lib/advanced-form-components.js"></script>
 
+<script>
+    $(function () {
+
+        $("#activity-submit").click(function (e) {
+            var formArray = $("#activity-form").serializeArray();
+            var formObj={};
+            $.each(formArray,function () {
+                formObj[this.name] = this.value;
+            })
+            console.log(JSON.stringify(formObj));
+
+            var res = {
+                status: false
+            }
+            activityForm.addActivity(formObj);
+
+        });
+
+    });
+    var activityForm = {
+        addActivity: function (formObj) {
+
+            activityInfo.newCommonApi(commonApi.newCommonApi());
+
+            //数据处理
+            if (typeof formObj.timeStart!="undefined" && formObj.timeStart!=""){
+                formObj.timeStart = formObj.timeStart+":00";
+            }
+            if (typeof formObj.timeEnd!="undefined" && formObj.timeEnd!=""){
+                formObj.timeEnd = formObj.timeEnd+":00";
+            }
+
+            //转int类型属性
+            var chargeType = formObj.chargeType;
+            delete formObj.chargeType;
+            formObj.chargeType = parseInt(chargeType);
+
+            //{"title":"dsf","peopleNumber":"sdafsd","timeStart":"2019-04-10 06:35","timeEnd":"2019-04-01 17:05",
+            // "address":"dsfasd","sponsorName":"dsaf","contactPersonName":"dsaf","contactPersonPhone":"adsf",
+            // "contactPersonEmail":"sdaf","chargeType":"2"}
+
+            activityInfo.addActivityInfo({
+                model: {
+                    activityInfo: formObj
+                },
+                success: function (res) {
+
+                    console.log(JSON.stringify(res));
+
+                    if (res.status) {
+                        location.replace("activity-list.html");
+                    }
+                }
+            });
+        }
+    }
+</script>
 </body>
 
 </html>

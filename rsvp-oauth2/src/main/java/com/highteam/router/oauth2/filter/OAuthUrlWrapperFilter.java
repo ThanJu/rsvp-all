@@ -34,7 +34,7 @@ public class OAuthUrlWrapperFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		
+
 		if(httpRequest.getRequestURI()!=null && httpRequest.getRequestURI().indexOf("/oauth/token")!=-1) {
 			
 			//认证

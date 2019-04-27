@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 通过id获取活动信息
+ * 通过id获取字典
  */
 @Service
 public class FetchConfigDictById extends AbstractRouteAdapater {

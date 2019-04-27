@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 查询翻页活动列表
+ * 查询翻页注册信息
  * */
 @Service
 public class FetchDataRegisterPageList extends AbstractRouteAdapater {

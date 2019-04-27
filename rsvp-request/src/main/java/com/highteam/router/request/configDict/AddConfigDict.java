@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
- * 新建活动
+ * 添加字典配置
  * */
 @Service
 public class AddConfigDict extends AbstractRouteAdapater {

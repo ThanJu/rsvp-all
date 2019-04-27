@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 修改活动
+ * 修改注册信息
  */
 @Service
 public class ModifyDataRegister extends AbstractRouteAdapater {

@@ -2,38 +2,38 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RSVP系统 - HighTeam旗下产品</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP系统 - HighTeam旗下产品</title>
 
-  <link href="img/favicon.png" rel="icon">
-  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-  <link href="css/style.css" rel="stylesheet">
-  <link href="css/style-responsive.css" rel="stylesheet">
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet">
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="js/commonApi.js"></script>
 
 </head>
 
 <body>
-  <div id="login-page">
+<div id="login-page">
     <div class="container">
-      <form class="form-login" action="index.html">
-        <h2 class="form-login-heading">现在登录</h2>
-        <div class="login-wrap">
-          <input type="text" class="form-control" placeholder="用户名" autofocus>
-          <br>
-          <input type="password" class="form-control" placeholder="密码">
-          <br>
-          <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> 登录</button>
+        <div class="form-login">
+            <h2 class="form-login-heading">现在登录</h2>
+            <div class="login-wrap">
+                <input type="text" class="form-control" id="accountName" placeholder="用户名">
+                <br>
+                <input type="password" class="form-control" id="password" placeholder="密码">
+                <br>
+                <button class="btn btn-theme btn-block" onclick="login()" type="submit">
+                    <i class="fa fa-lock"></i>
+                    登录
+                </button>
+            </div>
         </div>
-      </form>
     </div>
-  </div>
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-
+</div>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="js/login.js"></script>
 </body>
-
 </html>

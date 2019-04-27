@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
- * 新建活动
+ * 添加签到方式
  * */
 @Service
 public class AddActivitySignWay extends AbstractRouteAdapater {

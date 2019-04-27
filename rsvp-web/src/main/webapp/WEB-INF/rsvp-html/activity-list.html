@@ -9,6 +9,8 @@
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet">
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="js/commonApi.js"></script>
 
 </head>
 
@@ -26,41 +28,15 @@
                     <button type="button" id="add-activity" class="btn btn-theme">新建活动</button>
                 </div>
                 <ul id="activity-tab" class="nav nav-tabs">
-                    <li><a href="#all-activity" data-toggle="tab">所有活动</a></li>
-                    <li><a href="#no-start-activity" data-toggle="tab">未开始</a></li>
-                    <li><a href="#task-activity" data-toggle="tab">进行中</a></li>
-                    <li><a href="#finish-activity" data-toggle="tab">已结束</a></li>
+                    <li><a href="#all-activity" data=0 data-toggle="tab">所有活动</a></li>
+                    <li><a href="#no-start-activity" data=1  data-toggle="tab">未开始</a></li>
+                    <li><a href="#task-activity" data=2 data-toggle="tab">进行中</a></li>
+                    <li><a href="#finish-activity" data=3 data-toggle="tab">已结束</a></li>
                 </ul>
-                <div id="activityTabContent" class="tab-content skip">
+                <div id="activityTabContent" class="tab-content">
                     <div class="tab-pane fade in active" id="all-activity">
                         <table class="table table-advance table-hover ">
                             <tbody>
-                            <tr>
-                                <td>
-                                    <div class="cover"><img src="img/u50.png"></div>
-                                    <div class="synopsis skip">
-                                        <h4><a href="javascript:void(0)" data="activity-form.html#">智能硬件会议</a></h4>
-                                        <ul>
-                                            <li>时间：2019-04-11 00:00 至 2019-04-30 23:59</li>
-                                            <li>地点：北京市，朝阳区，朝阳公园</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td class="hidden-phone">方式：免费 + 收费报名</td>
-                                <td>
-                                    <a href="javascript:void(0)">后台管理</a>
-                                </td>
-                                <td>
-                                    <a href="javascript:void(0)">活动前管理</a>
-                                </td>
-                                <td>
-                                    <a href="sign-select-window.html" target="select-window-frame">活动中管理</a>
-                                </td>
-                                <td>
-                                    <a href="javascript:void(0)">活动后管理</a>
-                                </td>
-                            </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -71,7 +47,7 @@
                                 <td>
                                     <div class="cover"><img src="img/u50.png"></div>
                                     <div class="synopsis">
-                                        <h4><a href="activity-form.html#">智能硬件会议-未开始</a></h4>
+                                        <h4><a href="activity-form.html">智能硬件会议-未开始</a></h4>
                                         <ul>
                                             <li>时间：2019-04-11 00:00 至 2019-04-30 23:59</li>
                                             <li>地点：北京市，朝阳区，朝阳公园</li>
@@ -103,7 +79,7 @@
                                 <td>
                                     <div class="cover"><img src="img/u50.png"></div>
                                     <div class="synopsis">
-                                        <h4><a href="activity-form.html#">智能硬件会议-进行中</a></h4>
+                                        <h4><a href="activity-form.html">智能硬件会议-进行中</a></h4>
                                         <ul>
                                             <li>时间：2019-04-11 00:00 至 2019-04-30 23:59</li>
                                             <li>地点：北京市，朝阳区，朝阳公园</li>
@@ -134,8 +110,8 @@
                             <tr>
                                 <td>
                                     <div class="cover"><img src="img/u50.png"></div>
-                                    <div class="synopsis skip">
-                                        <h4><a href="javascript:void(0)" data="activity-form.html">智能硬件会议--已结束</a></h4>
+                                    <div class="synopsis">
+                                        <h4><a href="activity-form.html">智能硬件会议-进行中</a></h4>
                                         <ul>
                                             <li>时间：2019-04-11 00:00 至 2019-04-30 23:59</li>
                                             <li>地点：北京市，朝阳区，朝阳公园</li>
@@ -156,7 +132,6 @@
                                     <a href="javascript:void(0)">活动后管理</a>
                                 </td>
                             </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -169,17 +144,104 @@
     </section>
 
 </section>
-<script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/common-scripts.js"></script>
+<script src="js/activityInfo.js"></script>
+
 <script>
     $(function () {
         $('#activity-tab li:eq(0) a').tab('show');
 
-        $('#add-activity').click(function(){
-            $('#main-content').load("activity-form.html");
+        activityList.getActivityPageList({status:0});
+
+        $('#add-activity').click(function () {
+            location.replace("activity-form.html")
         });
+        $('#activity-tab a').click(function () {
+            var data = $(this).attr("data");
+            console.log(status);
+            activityList.getActivityPageList({status:data});
+        });
+
     });
+    var activityList = {
+        getActivityPageList: function (param) {
+            activityInfo.newCommonApi(commonApi.newCommonApi());
+            var query ={};
+            if (param!=null&&param.status!=0){
+                query = param;
+                query.activityStatus = param.status;
+            }
+            activityInfo.fetchActivityInfoPageList({
+                model: {
+                    activityInfo: query,
+                    start: 0,
+                    limit: 20
+                },
+                success: function (res) {
+                    activityList.appendHtml(res.data.root,param.status);
+                }
+            });
+        },
+        appendHtml:function (res,status) {
+            var tr = "";
+            $.each(res,function () {
+                var timeStart = "";
+                var timerEnd = "";
+                if (this.timeStart!=null){
+                    timeStart = Utils.formatDate(this.timeStart);
+                }
+                if (this.timeEnd!=null){
+                    timerEnd = Utils.formatDate(this.timeEnd);
+                }
+
+                tr = tr + "<tr dataId='" + this.activityInfoId + "' class='skip'>" +
+                    "<td>" +
+                    "<div class=\"cover\"><img src=\"img/u50.png\"></div>" +
+                    "<div class=\"synopsis\">" +
+                    "<h4><a href=\"activity-form.html\">" + this.title + "</a></h4>" +
+                    "<ul>" +
+                    "<li>时间：" + timeStart + " 至 " + timerEnd + "</li>" +
+                    "<li>地点：" + this.address + "</li>" +
+                    "</ul>" +
+                    "</div>" +
+                    "</td>" +
+                    "<td class=\"hidden-phone\">方式：" + this.chargeTypeName + " 报名</td>" +
+                    "<td>" +
+                    "<a href=\"javascript:void(0)\">后台管理</a>" +
+                    "</td>" +
+                    "<td>" +
+                    "<a href=\"javascript:void(0)\">活动前管理</a>" +
+                    "</td>" +
+                    "<td>" +
+                    "<a href=\"sign-select-window.html\" target=\"select-window-frame\">活动中管理</a>" +
+                    "</td>" +
+                    "<td>" +
+                    " <a href=\"javascript:void(0)\">活动后管理</a>" +
+                    "</td>" +
+                    "</tr>"
+            });
+            console.log("tab："+status);
+            switch (status) {
+                case 1:
+                    $("#no-start-activity table tbody").html("");
+                    $("#no-start-activity table tbody").append(tr);
+                    break;
+                case 2:
+                    $("#task-activity table tbody").html("");
+                    $("#task-activity table tbody").append(tr);
+                    break;
+                case 3:
+                    $("#finish-activity table tbody").html("");
+                    $("#finish-activity table tbody").append(tr);
+                    break;
+                case 0 :
+                    $("#all-activity table tbody").html("");
+                    $("#all-activity table tbody").append(tr);
+                    break;
+            }
+        }
+    }
 </script>
 </body>
 </html>

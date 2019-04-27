@@ -13,7 +13,7 @@ public class ActivityInfo {
 
     private String title;
 
-    private Integer peoplenumber;
+    private Integer peopleNumber;
 
     private Date timeStart;
 
@@ -95,12 +95,12 @@ public class ActivityInfo {
         this.title = title == null ? null : title.trim();
     }
 
-    public Integer getPeoplenumber() {
-        return peoplenumber;
+    public Integer getPeopleNumber() {
+        return peopleNumber;
     }
 
-    public void setPeoplenumber(Integer peoplenumber) {
-        this.peoplenumber = peoplenumber;
+    public void setPeopleNumber(Integer peopleNumber) {
+        this.peopleNumber = peopleNumber;
     }
 
     public Date getTimeStart() {
@@ -223,19 +223,19 @@ public class ActivityInfo {
         this.contactPersonEmail = contactPersonEmail == null ? null : contactPersonEmail.trim();
     }
 
-    public Integer getchargeType() {
+    public Integer getChargeType() {
         return chargeType;
     }
 
-    public void setchargeType(Integer chargeType) {
+    public void setChargeType(Integer chargeType) {
         this.chargeType = chargeType;
     }
 
-    public String getchargeTypeName() {
+    public String getChargeTypeName() {
         return chargeTypeName;
     }
 
-    public void setchargeTypeName(String chargeTypeName) {
+    public void setChargeTypeName(String chargeTypeName) {
         this.chargeTypeName = chargeTypeName == null ? null : chargeTypeName.trim();
     }
 

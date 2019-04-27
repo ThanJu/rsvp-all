@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
- * 新建活动页面
+ * 添加活动配置页面
  * */
 @Service
 public class AddActivityPage extends AbstractRouteAdapater {
