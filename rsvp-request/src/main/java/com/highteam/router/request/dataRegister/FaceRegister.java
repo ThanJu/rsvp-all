@@ -50,6 +50,28 @@ public class FaceRegister extends AbstractRouteAdapater {
                     dataRegister.setUserName(requestParam.get("name").toString());
                     dataRegister.setCompanyName(requestParam.get("item1").toString());
                     dataRegister.setCreateTime(new Date());
+                    dataRegister.setStatus(1);
+
+                    DataRegister modefiyRegister = new DataRegister();
+                    modefiyRegister.setStatus(3);
+                    modefiyRegister.setWorkPhone(dataRegister.getWorkPhone());
+                    transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+                        @Override
+                        protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
+                            //更新已存在的注册信息
+                            dataRegisterMapper.updateByPhoneSelective(modefiyRegister);
+                            //添加新的注册信息
+                            dataRegisterMapper.insertSelective(dataRegister);
+                        }
+                    });
+                    break;
+                case "2":
+                    //驳回---
+                    dataRegister.setWorkPhone(requestParam.get("telephone").toString());
+                    dataRegister.setUserName(requestParam.get("name").toString());
+                    dataRegister.setCompanyName(requestParam.get("item1").toString());
+                    dataRegister.setCreateTime(new Date());
+                    dataRegister.setStatus(2);
 
                     transactionTemplate.execute(new TransactionCallbackWithoutResult() {
                         @Override
@@ -58,15 +80,12 @@ public class FaceRegister extends AbstractRouteAdapater {
                         }
                     });
                     break;
-                case "2":
-                    //驳回---目前误操作
-                    break;
                 case "3":
                     //删除--删除注册信息（修改注册状态）
 
                     dataRegister.setCreateTime(new Date());
                     dataRegister.setWorkPhone(requestParam.get("telephone").toString());
-
+                    dataRegister.setStatus(3);//更新至删除状态
                     transactionTemplate.execute(new TransactionCallbackWithoutResult() {
                         @Override
                         protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {

@@ -37,6 +37,10 @@ public class DataRegister {
 
     private String address;
 
+    private Integer status;
+
+    private String photoimg;
+
     public Integer getRegisterId() {
         return registerId;
     }
@@ -171,5 +175,21 @@ public class DataRegister {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getPhotoimg() {
+        return photoimg;
+    }
+
+    public void setPhotoimg(String photoimg) {
+        this.photoimg = photoimg == null ? null : photoimg.trim();
     }
 }

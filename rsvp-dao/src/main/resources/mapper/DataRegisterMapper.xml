@@ -19,11 +19,13 @@
     <result column="district" jdbcType="INTEGER" property="district" />
     <result column="district_name" jdbcType="VARCHAR" property="districtName" />
     <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="photoImg" jdbcType="VARCHAR" property="photoimg" />
   </resultMap>
   <sql id="Base_Column_List">
     register_id, create_time, page_template_id, email, weixin_id, user_name, company_name, 
     work_phone, position, description, prove, prove_name, city, city_name, district, 
-    district_name, address
+    district_name, address, status, photoImg
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -41,13 +43,15 @@
       company_name, work_phone, position, 
       description, prove, prove_name, 
       city, city_name, district, 
-      district_name, address)
+      district_name, address, status, 
+      photoImg)
     values (#{registerId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{pageTemplateId,jdbcType=INTEGER}, 
       #{email,jdbcType=VARCHAR}, #{weixinId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{companyName,jdbcType=VARCHAR}, #{workPhone,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{prove,jdbcType=INTEGER}, #{proveName,jdbcType=VARCHAR}, 
       #{city,jdbcType=INTEGER}, #{cityName,jdbcType=VARCHAR}, #{district,jdbcType=INTEGER}, 
-      #{districtName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
+      #{districtName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{photoimg,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.highteam.router.model.DataRegister">
     insert into rsvp_data_register
@@ -103,6 +107,12 @@
       <if test="address != null">
         address,
       </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="photoimg != null">
+        photoImg,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="registerId != null">
@@ -155,6 +165,12 @@
       </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="photoimg != null">
+        #{photoimg,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -209,6 +225,12 @@
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="photoimg != null">
+        photoImg = #{photoimg,jdbcType=VARCHAR},
+      </if>
     </set>
     where register_id = #{registerId,jdbcType=INTEGER}
   </update>
@@ -229,7 +251,9 @@
       city_name = #{cityName,jdbcType=VARCHAR},
       district = #{district,jdbcType=INTEGER},
       district_name = #{districtName,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR}
+      address = #{address,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      photoImg = #{photoimg,jdbcType=VARCHAR}
     where register_id = #{registerId,jdbcType=INTEGER}
   </update>
   <sql id="selectPageList_Sql_Condition">
@@ -301,6 +325,9 @@
       </if>
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
       </if>
     </set>
     where work_phone = #{workPhone,jdbcType=INTEGER}
