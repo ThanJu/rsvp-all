@@ -70,8 +70,15 @@ var Utils = {
     // 毫秒数格式化日期
     formatDate: function (param) {
         var time = new Date(param);
-        var timeObj = time.getFullYear() + "年" + (time.getMonth() + 1) + "月" + time.getDate() + "日 " + time.getHours() + "点" + time.getMinutes()+"分";
+        var timeObj = time.getFullYear() + "年" + (time.getMonth() + 1) + "月" + time.getDate() + "日 " + time.getHours() + "点" + time.getMinutes() + "分";
         return timeObj;
+    },
+    GetQueryString: function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        // alert(r);
+        if (r != null) return unescape(r[2]);
+        return null;
     }
 }
 jQuery(document).ready(function ($) {

@@ -136,7 +136,7 @@
                         <span class="fileupload-exists"><i class="fa fa-undo"></i> 修改</span>
                         <input type="file" class="default"/>
                         </span>
-                                    <a href="advanced_form_components.html#" class="btn btn-theme04 fileupload-exists"
+                                    <a href="#" class="btn btn-theme04 fileupload-exists"
                                        data-dismiss="fileupload"><i class="fa fa-trash-o"></i>删除</a>
                                 </div>
                             </div>
@@ -153,13 +153,15 @@
 
     </section>
 </section>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/common-scripts.js"></script>
 <script src="lib/jquery-ui-1.9.2.custom.min.js"></script>
 <script type="text/javascript" src="lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
-<script src="lib/advanced-form-components.js"></script>
-
+<script src="lib/form-components.js"></script>
+<script src="js/activityInfo.js"></script>
 <script>
     $(function () {
 
@@ -167,13 +169,12 @@
             var formArray = $("#activity-form").serializeArray();
             var formObj={};
             $.each(formArray,function () {
-                formObj[this.name] = this.value;
+                var key = this.name;
+                var value = this.value;
+                formObj[key] = value;
             })
             console.log(JSON.stringify(formObj));
 
-            var res = {
-                status: false
-            }
             activityForm.addActivity(formObj);
 
         });

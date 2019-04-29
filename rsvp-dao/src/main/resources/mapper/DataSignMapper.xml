@@ -129,6 +129,9 @@
   <sql id="selectPageList_Sql_Condition">
     <where>
       1=1
+      <if test="model.activityInfoId != null">
+        and activity_info_id = #{model.activityInfoId,jdbcType=INTEGER}
+      </if>
     </where>
   </sql>
   <select id="selectPageListByParam" parameterType="com.highteam.router.common.m.PageParam" resultMap="BaseResultMap">

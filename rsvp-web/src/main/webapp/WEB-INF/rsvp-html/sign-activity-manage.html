@@ -11,6 +11,7 @@
     <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet">
     <script src="lib/jquery/jquery.min.js"></script>
+    <script src="js/commonApi.js"></script>
 
 </head>
 
@@ -19,10 +20,11 @@
     <header class="header">
         <div class="row">
             <div class="col-xs-9">
-                <a href="javascript:void(0)">当前窗口：1</a>
+                当前窗口：<span class="windowId"></span>
             </div>
             <div class="col-xs-1" style="text-align: center">
-                <a href="javascript:void(0)"><img src="img/u3702.png">
+                <a href="https://ai.baidu.com/facekit/page/form/E1CDD67E7CBA44DFBC5B86D940E52CA3" target="立即注册"><img
+                        src="img/u3702.png">
                     <br>
                     立即注册</a>
             </div>
@@ -46,26 +48,29 @@
                         <div class="col-xs-3">
                             已签到
                             <br>
-                            279
+                            <span class="alreadySignNum">279</span>
                         </div>
                         <div class="col-xs-3">
                             未签到
-                            <br>3321
+                            <br>
+                            <span class="notSignNum">3321</span>
                         </div>
                         <div class="col-xs-3">
                             当前窗口
-                            <br>1
+                            <br>
+                            <span class="windowId"></span>
                         </div>
                         <div class="col-xs-3">
                             活动注册
-                            <br>3600
+                            <br>
+                            <span class="activityRegisterNum">3600</span>
                         </div>
                     </div>
                     <div class="row sign-camera">
                         <div class="col-md-12">
                             <div class="input-group-btn">
                                 <input type="text" class="lucency-input" placeholder="请输入确认码/手机号/姓名">
-                                <a href="sign-activity-manage.html" target="活动中管理">
+                                <a href="camera.html" target="活动中管理">
                                     <img src="img/u3767.png" class="btn-size"></a>
                             </div>
                         </div>
@@ -136,42 +141,35 @@
                         </div>
                         <div class="col-md-4 card">
 
-                            <table class="table">
-                                <thead>
+                            <table class="table hotel_table">
                                 <h4 style="text-align: center">酒店信息</h4>
                                 <hr>
+                                <thead>
                                 <tr>
-                                    <th class="text-center">名称</th>
-                                    <th class="text-left">单价</th>
-                                    <th class="text-left">数量</th>
-                                    <th class="text-left">总价</th>
+                                    <th class="text-center" colspan="2">万豪酒店</th>
+                                    <th class="text-left">海景房</th>
+                                    <th class="text-left"><span style="color: red;font-weight: bold">未分配</span></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td class="text-center">主会场门票</td>
-                                    <td class="text-left">￥188</td>
-                                    <td class="text-left">1</td>
-                                    <td class="text-left">188</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">分会场门票</td>
-                                    <td class="text-left">￥28</td>
-                                    <td class="text-left">1</td>
-                                    <td class="text-left">28</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
+                                    <td class="text-center" colspan="4">
+                                        <ul>
+                                            <li>入驻日期：</li>
+                                            <li>退房日期：</li>
+                                            <li>金额：1200/晚 &nbsp;&nbsp;天数：2</li>
+                                        </ul>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
                                     <td class="text-right"><strong>合计总额</strong></td>
-                                    <td class="text-right">￥216</td>
+                                    <td class="text-right">2400</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
                                     <td class="text-right"><strong>欠款</strong></td>
-                                    <td class="text-right">￥216</td>
+                                    <td class="text-right">0</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -185,22 +183,13 @@
                         <div class="col-md-12 card-right">
                             <ul>
                                 <li>允许参会欠款签到
-                                    <div class="switch switch-square" data-on-label="<i class=' fa fa-check'></i>"
-                                         data-off-label="<i class='fa fa-times'></i>">
-                                        <input type="checkbox"/>
-                                    </div>
+                                    <input type="checkbox"/>
                                 </li>
                                 <li>允许参会欠款签到
-                                    <div class="switch switch-square" data-on-label="<i class=' fa fa-check'></i>"
-                                         data-off-label="<i class='fa fa-times'></i>">
-                                        <input type="checkbox"/>
-                                    </div>
+                                    <input type="checkbox"/>
                                 </li>
                                 <li>允许欠款打印胸卡
-                                    <div class="switch switch-square" data-on-label="<i class=' fa fa-check'></i>"
-                                         data-off-label="<i class='fa fa-times'></i>">
-                                        <input type="checkbox"/>
-                                    </div>
+                                    <input type="checkbox"/>
                                 </li>
                             </ul>
                         </div>
@@ -215,6 +204,93 @@
 <script src="lib/common-scripts.js"></script>
 <script src="lib/bootstrap-switch.js"></script>
 <script src="js/commonApi.js"></script>
+<script src="js/dataRegister.js"></script>
+<script>
+
+    //初始化获取数量
+
+    //确认签到接口
+
+    //签到人信息（参会信息、酒店信息、是否允许欠款、胸卡）
+
+    var joinInfo = [
+        {
+            title: '主会场门票',
+            unit: 188,
+            num: 1,
+            total: 188
+        },
+        {
+            title: '分会场门票',
+            unit: 28,
+            num: 2,
+            total: 56
+        }
+    ];
+    var hotelInfo = [
+        {
+            title: '主会场门票',
+            unit: 188,
+            num: 1,
+            total: 188
+        },
+        {
+            title: '分会场门票',
+            unit: 28,
+            num: 2,
+            total: 56
+        }
+    ];
+    //打印机调用接口
+
+    $(".alreadySignNum").html(275);
+    $(".notSignNum").html(3312);
+    $(".activityRegisterNum").html(3320);
+
+    $(function () {
+
+        var windowId = Utils.GetQueryString("windowId");
+        $(".windowId").html(windowId);
+
+        var activityId = 3;
+        dataRegister.countRegister(activityId);
+
+    });
+    var dataRegister = {
+        countRegister: function (activityId) {
+
+            dataRegisterApi.newCommonApi(commonApi.newCommonApi());
+
+            dataRegisterApi.countDataRegister({
+                model: {
+                    activityInfoId: activityId
+                },
+                success: function (res) {
+
+                    console.log(JSON.stringify(res));
+
+                    if (res.status) {
+                        var status = res.data.status;
+                        var notSignNum = 231;
+                        var alreadySignNum = 12;
+
+                        switch (status) {
+                            case 1:
+                                notSignNum = res.data.statusCount;
+                                break;
+                            case 2:
+                                alreadySignNum = res.data.statusCount;
+                                break;
+                        }
+                        $(".notSignNum").html(notSignNum);
+                        $(".alreadySignNum").html(alreadySignNum);
+                        $(".activityRegisterNum").html(notSignNum + alreadySignNum);
+                    }
+                }
+            });
+        }
+    }
+</script>
 </body>
 
 </html>

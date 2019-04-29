@@ -13,10 +13,22 @@
 <body class="bg">
 <div class="lucency-div">
     <div class="input-group-btn">
-        <input type="text" class="lucency-input" placeholder="请输入所在窗口号">
-        <a href="sign-activity-manage.html" target="活动中管理"><img src="img/u3695.png" class="btn-size"></a>
+        <input id="window_id" type="text" class="lucency-input" placeholder="请输入所在窗口号">
+        <a href="javascript:void(0)"><img src="img/u3695.png" class="btn-size" id="skip"></a>
     </div>
 </div>
 <script src="js/commonApi.js"></script>
+<script>
+    //<a href="sign-activity-manage.html" target="活动中管理">
+    $("#skip").click(function () {
+        var windowId = $("#window_id").val();
+        if (windowId != "") {
+            window.location="sign-activity-manage.html?windowId="+windowId;
+        }else{
+            alert("请输入窗口号")
+        }
+    });
+
+</script>
 </body>
 </html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.springframework.org/schema/mvc" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--禁用其缩放
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+    <title>Title</title>
+
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery-webcam/jquery.webcam.min.js"></script>
+
+</head>
+
+<style type="text/css">
+    #webcam {
+        border: 1px solid #666666;
+        width: 320px;
+        height: 240px;
+    }
+
+    #photos {
+        border: 1px solid #666666;
+        width: 320px;
+        height: 240px;
+    }
+
+    .btn {
+        width: 320px;
+        height: auto;
+        margin: 5px 0px;
+    }
+
+    .btn input[type=button] {
+        width: 150px;
+        height: 50px;
+        line-height: 50px;
+        margin: 3px;
+    }
+</style>
+
+</head>
+<body>
+<h1>人脸识别测试页</h1>
+<style type="text/css">
+    #webcam {
+        border: 1px solid #666666;
+    }
+
+    #photos {
+        border: 1px solid #666666;
+    }
+
+    .btn {
+        width: 320px;
+        height: auto;
+        margin: 5px 0px;
+    }
+
+    .btn input[type=button] {
+        width: 150px;
+        height: 40px;
+        line-height: 40px;
+        margin: 3px;
+    }
+
+    .btn input[type=text] {
+        width: 150px;
+        height: 40px;
+        line-height: 40px;
+        margin: 3px;
+    }
+
+    .div-inline {
+        display: inline;
+        width: 320px;
+        height: 240px;
+    }
+</style>
+
+<div>
+    <div id="webcam" class="div-inline"></div>
+    <div id="photos" class="div-inline">
+        <input type="hidden" id="imgPath" value="">
+        <img src="" id="img" style="margin-top: -230px;">
+    </div>
+</div>
+<div>
+    <div class="btn">
+        <input type="text" id="packageid_tab2" name="packageid_tab2"/>
+        <input type="button" value="关闭侦测" id="closeSenseBtn" onclick="closeSense();"/>
+        <input type="button" value="拍照" id="saveBtn" onclick="savePhoto();"/>
+        <input type="button" value="比对" id="compareBtn" onclick="comparePhoto();"/>
+    </div>
+    </br>
+    <img src="" id="img4"><label id="s4"></label>
+    <img src="" id="img5"><label id="s5"></label>
+    <img src="" id="img6"><label id="s6"></label>
+    </br>
+    <div id="result"></div>
+    <div id="result2"></div>
+</div>
+
+<script src="lib/jquery-webcam/jquery.webcam.min.js"></script>
+<script type="text/javascript">
+    var moveSense = true, tempMoveSense = false;
+    var cacheAvgPx = 0;
+    $(function () {
+
+
+        var w = 320, h = 240;
+        var pos = 0, ctx = null, saveCB, image = [];
+
+        var canvas = document.createElement("canvas");
+        canvas.setAttribute('width', w);
+        canvas.setAttribute('height', h);
+
+        console.log("" + canvas.toDataURL);
+        console.log()
+        if (canvas.toDataURL) {
+
+            ctx = canvas.getContext("2d");
+
+            image = ctx.getImageData(0, 0, w, h);
+            saveCB = function (data) {
+
+                var col = data.split(";");
+                var img = image;
+                var avgPx = image.data[0] + image.data[1] + image.data[2] + image.data[3] / 4;
+                console.log(image.data[0]);
+                for (var i = 0; i < w; i++) {
+                    var tmp = parseInt(col[i]);
+                    img.data[pos + 0] = (tmp >> 16) & 0xff;
+                    img.data[pos + 1] = (tmp >> 8) & 0xff;
+                    img.data[pos + 2] = tmp & 0xff;
+                    img.data[pos + 3] = 0xff;
+                    pos += 4;
+                }
+                if (pos >= 4 * w * h) {
+                    ctx.putImageData(img, 0, 0);
+                    var packageid = $('[name="packageid_tab2"]').val();
+                    console.log(avgPx + "--" + cacheAvgPx)
+                    if (moveSense && avgPx != cacheAvgPx) {
+                        tempMoveSense = true;
+                        $.post("http://20.1.1.239:8080/obs/business",
+                            JSON.stringify({
+                                type: "data",
+                                image: canvas.toDataURL("image/png"),
+                                packageId: packageid,
+                                businessParam:'dataSign-dataSign-faceDiscernSign'
+                            }),
+                            function (data) {
+                                console.log(data);
+                                //alert(JSON.stringify(data));
+                                showSubmitResult(data);
+                                pos = 0;
+                                cacheAvgPx = avgPx;
+                            },'application/json'
+                        );
+                    } else {
+                        tempMoveSense = false;
+                        pos = 0;
+                    }
+                }
+            };
+
+        } else {
+
+            saveCB = function (data) {
+                image.push(data);
+
+                pos += 4 * w;
+
+                if (pos >= 4 * w * h) {
+                    var id = $('[name="packageid_tab2"]').val();
+                    $.post("http://20.1.1.239:8080/obs/business",
+                        JSON.stringify({
+                            type: "pixel",
+                            image: image.join('|'),
+                            packageId: packageid,
+                            businessParam:'dataSign-dataSign-faceDiscernSign'
+                        }),
+                        function (data) {
+                            console.log(data);
+                            showSubmitResult(data);
+                            pos = 0;
+                        },'application/json'
+                    );
+                }
+            };
+        }
+
+        $("#webcam").webcam({
+            width: w,
+            height: h,
+            mode: "callback",
+            swffile: "lib/jquery-webcam/jscam_canvas_only.swf",
+
+            onSave: saveCB,
+
+            onCapture: function () {
+                webcam.save();
+            },
+
+            debug: function (type, string) {
+                console.log(type + ": " + string);
+            }
+        });
+
+    });
+    var t1 = window.setInterval("autoCapture();", 4000);
+    window.clearTimeout(t1);//去掉定时器
+    function autoCapture() {
+        savePhoto();
+
+        if (moveSense && tempMoveSense) {
+            comparePhoto();
+        }
+    }
+
+    //拍照
+    function savePhoto() {
+        webcam.capture();
+    }
+
+    function comparePhoto() {
+        var imgPath = $("#imgPath").val();
+        $.post("/testWebCam/search",
+            {imgPath: imgPath},
+            function (data) {
+                console.log(data);
+                var faceObj = JSON.parse(data.compareObj);
+                $("#result2").html(JSON.stringify(faceObj));
+                var i = 4;
+                if (faceObj.result != null) {
+                    for (var u in faceObj.result.user_list) {
+                        var projectPath = "http://20.1.1.239:8080/";
+                        var user = faceObj.result.user_list[u];
+                        var imgPath = "img_drs/facelibrary/" + user.user_id + ".jpg";
+                        if (user.user_id == "hg1") {
+                            imgPath = "img_drs/facelibrary/hou2.jpg";
+                        }
+                        $("#img" + i).attr("src", projectPath + imgPath);
+                        $("#s" + i).html("相似：" + (user.score + "").substring(0, 2) + "%");
+                        i++;
+                    }
+                } else {
+                    $("#img3").attr("src", "");
+                    $("#s3").html("");
+                    $("#img4").attr("src", "");
+                    $("#s4").html("");
+                    $("#img5").attr("src", "");
+                    $("#s5").html("");
+                }
+            }
+        );
+    }
+
+    function closeSense() {
+        moveSense = false;
+
+    }
+
+    function showSubmitResult(data) {
+        var imgPath = data.filePath;
+        var projectPath = data.projectPath;
+        var faceObj = JSON.parse(data.faceObj);
+
+        $("#imgPath").val(imgPath);
+        $("#img").attr("src", projectPath + imgPath);
+        $("#result").html(JSON.stringify(faceObj));
+
+    }
+</script>
+</body>
+</html>

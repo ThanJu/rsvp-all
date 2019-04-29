@@ -7,7 +7,7 @@ public class DataRegister {
 
     private Date createTime;
 
-    private Integer pageTemplateId;
+    private Integer activityInfoId;
 
     private String email;
 
@@ -39,7 +39,11 @@ public class DataRegister {
 
     private Integer status;
 
+    private String statusName;
+
     private String photoimg;
+
+    private Integer statusCount;
 
     public Integer getRegisterId() {
         return registerId;
@@ -57,12 +61,12 @@ public class DataRegister {
         this.createTime = createTime;
     }
 
-    public Integer getPageTemplateId() {
-        return pageTemplateId;
+    public Integer getActivityInfoId() {
+        return activityInfoId;
     }
 
-    public void setPageTemplateId(Integer pageTemplateId) {
-        this.pageTemplateId = pageTemplateId;
+    public void setActivityInfoId(Integer activityInfoId) {
+        this.activityInfoId = activityInfoId;
     }
 
     public String getEmail() {
@@ -185,11 +189,27 @@ public class DataRegister {
         this.status = status;
     }
 
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName == null ? null : statusName.trim();
+    }
+
     public String getPhotoimg() {
         return photoimg;
     }
 
     public void setPhotoimg(String photoimg) {
         this.photoimg = photoimg == null ? null : photoimg.trim();
+    }
+
+    public Integer getStatusCount() {
+        return statusCount;
+    }
+
+    public void setStatusCount(Integer statusCount) {
+        this.statusCount = statusCount;
     }
 }
