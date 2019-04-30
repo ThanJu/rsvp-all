@@ -25,7 +25,7 @@ import java.util.List;
  *
  * */
 @Service
-public class countDataSign extends AbstractRouteAdapater {
+public class SignDataCount extends AbstractRouteAdapater {
     @Autowired
     private DataSignMapper dataSignMapper;
     @Autowired
@@ -51,6 +51,6 @@ public class countDataSign extends AbstractRouteAdapater {
 
     @Override
     public String getRoutePath() {
-        return new RequestPath("dataSign-dataSign-countDataSign").toString();
+        return new RequestPath("dataSign-dataSign-signDataCount").toString();
     }
 }

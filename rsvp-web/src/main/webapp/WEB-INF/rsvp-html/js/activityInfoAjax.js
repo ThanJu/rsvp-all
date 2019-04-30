@@ -1,7 +1,8 @@
 
-var activityInfo = {
+var activityInfoAjax = {
     commonApi:null,
     newCommonApi:function(commonApi){
+        //使用前确认页面引用了commonApi.js
         this.commonApi = commonApi;
     },
     /**

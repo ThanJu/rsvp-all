@@ -161,7 +161,7 @@
 <script type="text/javascript" src="lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
 <script type="text/javascript" src="lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
 <script src="lib/form-components.js"></script>
-<script src="js/activityInfo.js"></script>
+<script src="js/activityInfoAjax.js"></script>
 <script>
     $(function () {
 
@@ -183,7 +183,7 @@
     var activityForm = {
         addActivity: function (formObj) {
 
-            activityInfo.newCommonApi(commonApi.newCommonApi());
+            activityInfoAjax.newCommonApi(commonApi.newCommonApi());
 
             //数据处理
             if (typeof formObj.timeStart!="undefined" && formObj.timeStart!=""){
@@ -202,7 +202,7 @@
             // "address":"dsfasd","sponsorName":"dsaf","contactPersonName":"dsaf","contactPersonPhone":"adsf",
             // "contactPersonEmail":"sdaf","chargeType":"2"}
 
-            activityInfo.addActivityInfo({
+            activityInfoAjax.addActivityInfo({
                 model: {
                     activityInfo: formObj
                 },

@@ -26,6 +26,8 @@ public interface DataRegisterMapper {
 
     List<DataRegister> selectStatusCount(int activityInfoId);
 
+    List<DataRegister> selectBySearch(DataRegister record);
+
 
 
 

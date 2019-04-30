@@ -1,17 +1,18 @@
 
-var dataRegisterApi = {
+var signDataAjax = {
     commonApi:null,
     newCommonApi:function(commonApi){
+        //使用前确认页面引用了commonApi.js
         this.commonApi = commonApi;
     },
     /**
-     *查询活动人数信息
+     *电脑端签到
      * @param {*} paramObj
      */
-    countDataRegister: function (paramObj) {
+    computerSign: function (paramObj) {
         this.commonApi.serverApi.requestApi({
             data: {
-                "businessParam": "dataRegister-dataRegister-countDataRegister",
+                "businessParam": "dataSign-dataSign-computerSign",
                 "model": paramObj.model
             },
             success: function (res) {
@@ -23,7 +24,7 @@ var dataRegisterApi = {
                 if (typeof paramObj.fail === "function") {
                     paramObj.fail(res);
                 } else {
-                    this.commonApi.alertMsg('获取活动人数信息失败');
+                    this.commonApi.alertMsg('电脑签到失败');
                 }
             },
             complete: function (res) {

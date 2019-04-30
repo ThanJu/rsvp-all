@@ -69,7 +69,7 @@
                     <div class="row sign-camera">
                         <div class="col-md-12">
                             <div class="input-group-btn">
-                                <input type="text" class="lucency-input" placeholder="请输入确认码/手机号/姓名">
+                                <input type="text" id="search" class="lucency-input" placeholder="请输入确认码/手机号/姓名">
                                 <a href="camera.html" target="活动中管理">
                                     <img src="img/u3767.png" class="btn-size"></a>
                             </div>
@@ -204,7 +204,7 @@
 <script src="lib/common-scripts.js"></script>
 <script src="lib/bootstrap-switch.js"></script>
 <script src="js/commonApi.js"></script>
-<script src="js/dataRegister.js"></script>
+<script src="js/dataRegisterAjax.js"></script>
 <script>
 
     //初始化获取数量
@@ -243,10 +243,6 @@
     ];
     //打印机调用接口
 
-    $(".alreadySignNum").html(275);
-    $(".notSignNum").html(3312);
-    $(".activityRegisterNum").html(3320);
-
     $(function () {
 
         var windowId = Utils.GetQueryString("windowId");
@@ -255,13 +251,24 @@
         var activityId = 3;
         dataRegister.countRegister(activityId);
 
+        $("#search").keypress(function (e) {
+            if (e.keyCode == 13){
+                var searchVal = $(this).val();
+                var paramObj ={
+                    activityId :activityId,
+                    searchVal :searchVal
+                }
+                dataRegister.fetchDataRegisterByDataRegisterParam(paramObj);
+            }
+        })
+
     });
     var dataRegister = {
         countRegister: function (activityId) {
 
-            dataRegisterApi.newCommonApi(commonApi.newCommonApi());
+            dataRegisterAjax.newCommonApi(commonApi.newCommonApi());
 
-            dataRegisterApi.countDataRegister({
+            dataRegisterAjax.countDataRegister({
                 model: {
                     activityInfoId: activityId
                 },
@@ -271,20 +278,29 @@
 
                     if (res.status) {
                         var status = res.data.status;
-                        var notSignNum = 231;
-                        var alreadySignNum = 12;
+                        var notSignNum = res.data.notSignNum;
+                        var alreadySignNum = res.data.alreadySignNum;
+                        var activityRegisterNum = res.data.activityRegisterNum;
 
-                        switch (status) {
-                            case 1:
-                                notSignNum = res.data.statusCount;
-                                break;
-                            case 2:
-                                alreadySignNum = res.data.statusCount;
-                                break;
-                        }
                         $(".notSignNum").html(notSignNum);
                         $(".alreadySignNum").html(alreadySignNum);
-                        $(".activityRegisterNum").html(notSignNum + alreadySignNum);
+                        $(".activityRegisterNum").html(activityRegisterNum);
+                    }
+                }
+            });
+        },
+        fetchDataRegisterByDataRegisterParam: function (paramObj) {
+
+            dataRegisterAjax.newCommonApi(commonApi.newCommonApi());
+
+            dataRegisterAjax.fetchDataRegisterByRegister({
+                model: {
+                    activityInfoId: paramObj.activityId,
+                    searchVal: paramObj.searchVal
+                },
+                success: function (res) {
+                    console.log(JSON.stringify(res));
+                    if (res.status) {
                     }
                 }
             });

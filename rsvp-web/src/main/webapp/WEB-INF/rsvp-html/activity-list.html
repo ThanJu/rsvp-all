@@ -146,7 +146,7 @@
 </section>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/common-scripts.js"></script>
-<script src="js/activityInfo.js"></script>
+<script src="js/activityInfoAjax.js"></script>
 
 <script>
     $(function () {
@@ -166,13 +166,13 @@
     });
     var activityList = {
         getActivityPageList: function (param) {
-            activityInfo.newCommonApi(commonApi.newCommonApi());
+            activityInfoAjax.newCommonApi(commonApi.newCommonApi());
             var query ={};
             if (param!=null&&param.status!=0){
                 query = param;
                 query.activityStatus = param.status;
             }
-            activityInfo.fetchActivityInfoPageList({
+            activityInfoAjax.fetchActivityInfoPageList({
                 model: {
                     activityInfo: query,
                     start: 0,

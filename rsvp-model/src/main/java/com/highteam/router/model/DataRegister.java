@@ -41,7 +41,9 @@ public class DataRegister {
 
     private String statusName;
 
-    private String photoimg;
+    private String photoImg;
+
+    private String qrCode;
 
     private Integer statusCount;
 
@@ -197,12 +199,20 @@ public class DataRegister {
         this.statusName = statusName == null ? null : statusName.trim();
     }
 
-    public String getPhotoimg() {
-        return photoimg;
+    public String getPhotoImg() {
+        return photoImg;
     }
 
-    public void setPhotoimg(String photoimg) {
-        this.photoimg = photoimg == null ? null : photoimg.trim();
+    public void setPhotoImg(String photoImg) {
+        this.photoImg = photoImg == null ? null : photoImg.trim();
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode == null ? null : qrCode.trim();
     }
 
     public Integer getStatusCount() {
