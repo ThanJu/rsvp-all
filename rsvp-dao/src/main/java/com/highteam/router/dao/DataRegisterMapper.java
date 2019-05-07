@@ -22,7 +22,7 @@ public interface DataRegisterMapper {
 
     int selectPageListCount(PageParam<DataRegister> pageParam);
 
-    List<DataRegister> updateByPhoneSelective(DataRegister record);
+    int updateByPhoneSelective(DataRegister record);
 
     List<DataRegister> selectStatusCount(int activityInfoId);
 

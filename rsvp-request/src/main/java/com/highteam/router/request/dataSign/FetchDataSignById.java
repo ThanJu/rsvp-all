@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 通过id获取活动信息
+ * 通过id查询签到信息
  */
 @Service
 public class FetchDataSignById extends AbstractRouteAdapater {

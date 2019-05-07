@@ -23,7 +23,7 @@ import java.util.Map;
  * 查询活动人数信息
  */
 @Service
-public class countDataRegister extends AbstractRouteAdapater {
+public class CountDataRegister extends AbstractRouteAdapater {
     @Autowired
     private DataRegisterMapper dataRegisterMapper;
 
@@ -37,6 +37,9 @@ public class countDataRegister extends AbstractRouteAdapater {
             throw new BusinessException("请求数据为空");
         } else {
             List<DataRegister> dataRegisterList = dataRegisterMapper.selectStatusCount(activityInfoId);
+            map.put("notSignNum",0);
+            map.put("alreadySignNum",0);
+            map.put("auditNum",0);
             for (DataRegister register : dataRegisterList) {
                 switch (register.getStatus()) {
                     case 1:

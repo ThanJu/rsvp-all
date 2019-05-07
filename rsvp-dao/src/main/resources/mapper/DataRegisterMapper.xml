@@ -367,12 +367,14 @@
         qr_code = #{qrCode,jdbcType=VARCHAR},
       </if>
     </set>
-    where work_phone = #{workPhone,jdbcType=INTEGER}
+    where work_phone = #{workPhone,jdbcType=INTEGER} AND
+    activity_info_id = #{activityInfoId,jdbcType=INTEGER}
   </update>
   <select id="selectStatusCount" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT status, status_name,count(register_id) status_count
         from rsvp_data_register
         where activity_info_id = #{activityInfoId,jdbcType=INTEGER}
+        AND (status =1 OR status =2)
         GROUP BY status,status_name
     </select>
   <select id="selectBySearch" parameterType="com.highteam.router.model.DataRegister" resultMap="BaseResultMap">
@@ -387,5 +389,6 @@
       OR work_phone = #{workPhone,jdbcType=VARCHAR}
       OR qr_code = #{qrCode,jdbcType=VARCHAR}
     )
+    AND (status =1 OR status =2)
   </select>
 </mapper>

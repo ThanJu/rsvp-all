@@ -4,7 +4,9 @@ public enum dataRegisterStatusEnum {
 
     NOT_SIGN(1,"未签到"),
     ALREADY_SIGN(2,"已签到"),
-    AUDIT(3,"审核中");
+    AUDIT(3,"审核中"),
+    REJECTED(4,"驳回"),
+    FREEZE(5,"已冻结");
 
     private Integer code;
 

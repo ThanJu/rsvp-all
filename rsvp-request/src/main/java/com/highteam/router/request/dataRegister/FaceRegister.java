@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.highteam.router.api.AbstractRouteAdapater;
 import com.highteam.router.common.m.BusinessException;
 import com.highteam.router.dao.DataRegisterMapper;
+import com.highteam.router.enums.dataRegisterStatusEnum;
 import com.highteam.router.m.AppRequest;
 import com.highteam.router.m.RequestPath;
 import com.highteam.router.m.UserInfo;
@@ -18,6 +19,8 @@ import org.springframework.transaction.support.TransactionTemplate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 添加注册信息
@@ -33,6 +36,7 @@ public class FaceRegister extends AbstractRouteAdapater {
     public Object getResponse(AppRequest param, UserInfo userInfo, RequestPath path, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         JSONObject requestParam = JSONObject.parseObject(JSON.toJSONString(param.getModel()));
+        String activityId = request.getParameter("activityId");
 //        {"optType":1,"applyId":3311,"uUserId":"17611030057","projectToken":"228C80FEA87149E293C6F960D2F3817E",
 //                "item1":"海天","appId":15999957,"groupId":"star","name":"港哥","logId":155639750762569,
 //                "channelType":1,"telephone":"17611030057",
@@ -46,15 +50,24 @@ public class FaceRegister extends AbstractRouteAdapater {
                 case "1":
                     //审核通过--执行添加注册信息操作
 
+
                     dataRegister.setWorkPhone(requestParam.get("telephone").toString());
                     dataRegister.setUserName(requestParam.get("name").toString());
                     dataRegister.setCompanyName(requestParam.get("item1").toString());
+                    dataRegister.setPhotoImg(requestParam.get("faceImage").toString());
                     dataRegister.setCreateTime(new Date());
-                    dataRegister.setStatus(1);
+                    dataRegister.setStatus(dataRegisterStatusEnum.NOT_SIGN.getCode());
+                    dataRegister.setStatusName(dataRegisterStatusEnum.NOT_SIGN.getName());
 
                     DataRegister modefiyRegister = new DataRegister();
-                    modefiyRegister.setStatus(3);
+                    modefiyRegister.setStatus(dataRegisterStatusEnum.FREEZE.getCode());
+                    modefiyRegister.setStatusName(dataRegisterStatusEnum.FREEZE.getName());
                     modefiyRegister.setWorkPhone(dataRegister.getWorkPhone());
+
+                    if (activityId != null) {
+                        dataRegister.setActivityInfoId(Integer.parseInt(activityId));
+                        modefiyRegister.setActivityInfoId(Integer.parseInt(activityId));
+                    }
                     transactionTemplate.execute(new TransactionCallbackWithoutResult() {
                         @Override
                         protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
@@ -67,25 +80,32 @@ public class FaceRegister extends AbstractRouteAdapater {
                     break;
                 case "2":
                     //驳回---
-                    dataRegister.setWorkPhone(requestParam.get("telephone").toString());
-                    dataRegister.setUserName(requestParam.get("name").toString());
-                    dataRegister.setCompanyName(requestParam.get("item1").toString());
-                    dataRegister.setCreateTime(new Date());
-                    dataRegister.setStatus(2);
-
-                    transactionTemplate.execute(new TransactionCallbackWithoutResult() {
-                        @Override
-                        protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
-                            dataRegisterMapper.insertSelective(dataRegister);
-                        }
-                    });
+//                    if (activityId != null) {
+//                        dataRegister.setActivityInfoId(Integer.parseInt(activityId));
+//                    }
+//                    dataRegister.setWorkPhone(requestParam.get("telephone").toString());
+//                    dataRegister.setUserName(requestParam.get("name").toString());
+//                    dataRegister.setCompanyName(requestParam.get("item1").toString());
+//                    dataRegister.setCreateTime(new Date());
+//                    dataRegister.setStatus(dataRegisterStatusEnum.REJECTED.getCode());
+//                    dataRegister.setStatusName(dataRegisterStatusEnum.REJECTED.getName());
+//                    transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+//                        @Override
+//                        protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
+//                            //添加新的注册信息
+//                            dataRegisterMapper.insertSelective(dataRegister);
+//                        }
+//                    });
                     break;
                 case "3":
                     //删除--删除注册信息（修改注册状态）
-
+                    if (activityId != null) {
+                        dataRegister.setActivityInfoId(Integer.parseInt(activityId));
+                    }
                     dataRegister.setCreateTime(new Date());
                     dataRegister.setWorkPhone(requestParam.get("telephone").toString());
-                    dataRegister.setStatus(3);//更新至删除状态
+                    dataRegister.setStatus(dataRegisterStatusEnum.FREEZE.getCode());
+                    dataRegister.setStatusName(dataRegisterStatusEnum.FREEZE.getName());
                     transactionTemplate.execute(new TransactionCallbackWithoutResult() {
                         @Override
                         protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {

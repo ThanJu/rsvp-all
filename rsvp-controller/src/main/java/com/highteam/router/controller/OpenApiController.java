@@ -50,11 +50,11 @@ public class OpenApiController extends AuthApiController {
      */
     @RequestMapping(value = "/faceRegister", method = RequestMethod.POST)
     public Object pushReception( HttpServletRequest serRequest,HttpServletResponse serResponse, BufferedReader br) {
-        Map<String, Object> map = new HashMap<>();
         AppRequest param= new AppRequest();
         //body部分
         String inputLine;
         String str = "";
+        Map<String, Object> map = new HashMap<>();
         try {
             //取请求body信息
             while ((inputLine = br.readLine()) != null) {
@@ -66,25 +66,19 @@ public class OpenApiController extends AuthApiController {
             JSONObject jsonObj = JSON.parseObject(paramStr);
             param.setModel(JSONObject.toJavaObject(jsonObj, Map.class));
             param.setBusinessParam("dataRegister-dataRegister-faceRegister");
+            map.put("logId", param.getModel().get("logId"));
         } catch (IOException e) {
             System.out.println("IOException: " + e);
         }
-
-        OAuth2Request oAuth2Request = requestGateWayCore.request(new UserInfo(), param, serRequest, serResponse, new BusinessExecuteService() {
-            @Override
-            public void preExecute(RouteAdapater adpater) {
-                if (adpater.requiredAuthor()) {
-                    throw new BusinessException("AUTH_ERROR", "This is a protected request!");
-                }
-            }
-        });
-
+        OAuth2Request oAuth2Request = requestGateWayCore.request(new UserInfo(), param, serRequest, serResponse, null);
         if (oAuth2Request.getStatus()){
-            map.put("logId", (String) param.getModel().get("logId"));
             map.put("errorCode", 0);
             map.put("errorMsg", "同步成功");
+        }else{
+            map.put("errorCode", 1);
+            map.put("errorMsg", "同步失败");
         }
-        return map;
+        return  map;
     }
 
 

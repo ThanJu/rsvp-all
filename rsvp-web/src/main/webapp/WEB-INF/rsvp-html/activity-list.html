@@ -179,7 +179,9 @@
                     limit: 20
                 },
                 success: function (res) {
-                    activityList.appendHtml(res.data.root,param.status);
+                    if (res.data.root!=null){
+                        activityList.appendHtml(res.data.root,param.status);
+                    }
                 }
             });
         },

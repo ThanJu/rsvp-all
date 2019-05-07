@@ -1,4 +1,4 @@
-var domain = "http://20.1.1.239:8080";
+var domain = "https://20.1.1.239:8443";
 // domain = "http://htwl.vaiwan.com";
 var commonApi = {
     serverApi: {
@@ -28,12 +28,12 @@ var commonApi = {
             var curTimestamp = new Date().getTime();
             if ((curTimestamp - tokenData.timestamp) < 7000000) {
                 authorization = tokenData.token_type + " " + tokenData.access_token;
-            } else {
+            } else if (6000000<(curTimestamp - tokenData.timestamp) < 7000000) {
                 //重新获取token
                 this.login({
                     success: function (res) {
                         if (res.access_token != null) {
-                            authorization = this.getAuthorization();
+                            authorization = res.token_type + " " + res.access_token;
                         } else {
                             commonApi.alertMsg("连接失败，请重新登录");
                             window.location.href = 'index.html';
@@ -43,6 +43,8 @@ var commonApi = {
                         commonApi.alertMsg("连接失败，请重新登录");
                     }
                 });
+            }else{
+                this.freeSkip();
             }
             return authorization;
         },

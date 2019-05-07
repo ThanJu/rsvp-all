@@ -2119,7 +2119,9 @@ ul.chat-available-user li a:hover {
     padding-top: 2%;
     text-align: left;
  }
-
+#activityTabContent .table{
+    width:87%!important;
+}
 .datetimepicker-minutes .minute,.datetimepicker-hours .hour{
     margin: 0px 5px;
 }
@@ -2167,7 +2169,9 @@ ul.chat-available-user li a:hover {
     width: 82%;
     margin: 0 auto;
 }
-
+#statusName{
+    margin-left: 20px;
+}
 .lucency-div{
     text-align: center;
     margin-top: 20%;

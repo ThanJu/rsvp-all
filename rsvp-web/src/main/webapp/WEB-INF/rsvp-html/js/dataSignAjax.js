@@ -1,5 +1,5 @@
 
-var signDataAjax = {
+var dataSignAjax = {
     commonApi:null,
     newCommonApi:function(commonApi){
         //使用前确认页面引用了commonApi.js

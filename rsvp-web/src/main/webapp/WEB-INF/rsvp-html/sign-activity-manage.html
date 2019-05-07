@@ -12,10 +12,84 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="lib/jquery/jquery.min.js"></script>
     <script src="js/commonApi.js"></script>
+    <style>
+        .sign-userinfo .card {
+            display: none;
+        }
 
+        .camera_iframe {
+            width: 340px;
+            height: 290px;
+            border: 0px;
+        }
+
+        .popup_cover {
+            background: #000000;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            filter: alpha(opacity=30);
+            opacity: 0.7;
+            display: none;
+            z-index: 2
+        }
+
+        .popup_showdiv {
+            margin: 0 auto;
+            display: none;
+            position: absolute;
+            top: 20%;
+            left: 40%;
+            z-index: 3;
+            padding: 10px;
+        }
+
+        .popup_title {
+            width: 100%;
+            color: #ffffff;
+            font-size: 2.65rem;
+            line-height: 3rem;
+            text-align: center;
+        }
+
+        .popup_content {
+            font-size: 0.5rem;
+            padding: 0.5rem;
+            line-height: 1rem;
+        }
+
+        .popup_close {
+            background: #ca0c12;
+            width: 50px;
+            height: 2rem;
+            line-height: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.98);
+            -moz-border-radius: .128rem;
+            -webkit-border-radius: .128rem;
+            border-radius: .128rem;
+            font-size: .59733rem;
+            float: right;
+        }
+    </style>
 </head>
 
 <body class="bg">
+<!-- 遮罩层 -->
+<div id="cover" class="popup_cover">
+</div>
+<div id="showdiv" class="popup_showdiv">
+    <div class="popup_title">
+        <div class="popup_close" onclick="closeWindow()">
+            关闭
+        </div>
+    </div>
+    <div class="popup_content" style="">
+        <iframe src="camera.html" class="camera_iframe"></iframe>
+    </div>
+</div>
 <section id="container">
     <header class="header">
         <div class="row">
@@ -48,12 +122,12 @@
                         <div class="col-xs-3">
                             已签到
                             <br>
-                            <span class="alreadySignNum">279</span>
+                            <span class="alreadySignNum"></span>
                         </div>
                         <div class="col-xs-3">
                             未签到
                             <br>
-                            <span class="notSignNum">3321</span>
+                            <span class="notSignNum"></span>
                         </div>
                         <div class="col-xs-3">
                             当前窗口
@@ -63,42 +137,44 @@
                         <div class="col-xs-3">
                             活动注册
                             <br>
-                            <span class="activityRegisterNum">3600</span>
+                            <span class="activityRegisterNum"></span>
                         </div>
                     </div>
                     <div class="row sign-camera">
                         <div class="col-md-12">
                             <div class="input-group-btn">
                                 <input type="text" id="search" class="lucency-input" placeholder="请输入确认码/手机号/姓名">
-                                <a href="camera.html" target="活动中管理">
+                                <a href="javascript:void(0)" onclick="showWindow()">
                                     <img src="img/u3767.png" class="btn-size"></a>
                             </div>
                         </div>
                     </div>
                     <div class="row sign-btn">
                         <div class="col-md-12">
-                            <a href="javascript:void(0)">确认签到</a>
-                            <a href="javascript:void(0)">打印</a>
-                            <a href="javascript:void(0)">现场分房</a>
+                            <input type="hidden" id="activityId" value="3">
+                            <input type="hidden" id="registerId" value="">
+                            <a href="javascript:void(0)" id="sign">确认签到</a>
+                            <a href="javascript:void(0)" id="print">打印</a>
+                            <a href="javascript:void(0)" id="allotHotel">现场分房</a>
                         </div>
                     </div>
                     <div class="row sign-camera sign-userinfo">
-                        <div class="col-md-4 card">
-                            <div class="cover"><img src="img/u3726.png">
+                        <div class="col-md-4 card" id="basicInfo">
+                            <div class="cover"><img id='photoImg' src="">
                                 <br>
                                 <br>
                                 <ul>
-                                    <li><h4>Amy</h4></li>
+                                    <li><h4 id='userName'></h4></li>
                                     <li>
-                                        <small>13908087765</small>
+                                        <small id="workPhone"></small>
                                     </li>
                                 </ul>
                             </div>
                             <div class="synopsis skip">
-                                <h4><a href="activity-form.html">&nbsp;&nbsp;未签到</a></h4>
+                                <h4><a href="activity-form.html" id='statusName'>&nbsp;&nbsp;未签到</a></h4>
                             </div>
                         </div>
-                        <div class="col-md-4 card">
+                        <div class="col-md-4 card" id="expoInfo">
                             <table class="table">
                                 <thead>
                                 <h4 style="text-align: center">参会信息</h4>
@@ -139,8 +215,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-md-4 card">
-
+                        <div class="col-md-4 card" id="hotelInfo">
                             <table class="table hotel_table">
                                 <h4 style="text-align: center">酒店信息</h4>
                                 <hr>
@@ -203,8 +278,8 @@
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/common-scripts.js"></script>
 <script src="lib/bootstrap-switch.js"></script>
-<script src="js/commonApi.js"></script>
 <script src="js/dataRegisterAjax.js"></script>
+<script src="js/dataSignAjax.js"></script>
 <script>
 
     //初始化获取数量
@@ -229,16 +304,12 @@
     ];
     var hotelInfo = [
         {
-            title: '主会场门票',
-            unit: 188,
-            num: 1,
-            total: 188
-        },
-        {
-            title: '分会场门票',
-            unit: 28,
-            num: 2,
-            total: 56
+            name: '主会场门票',
+            type: '海景房',
+            status: 1,
+            statusName: '未分配',
+            enterDate: '2019-05-05',
+            endDate: '2019-06-05'
         }
     ];
     //打印机调用接口
@@ -248,21 +319,59 @@
         var windowId = Utils.GetQueryString("windowId");
         $(".windowId").html(windowId);
 
-        var activityId = 3;
+        var activityId = $("#activityId").val();
         dataRegister.countRegister(activityId);
 
         $("#search").keypress(function (e) {
-            if (e.keyCode == 13){
-                var searchVal = $(this).val();
-                var paramObj ={
-                    activityId :activityId,
-                    searchVal :searchVal
-                }
-                dataRegister.fetchDataRegisterByDataRegisterParam(paramObj);
+            if (e.keyCode == 13) {
+                showBasicInfo();
             }
         })
 
+        $("#sign").click(function () {
+            var activityId = $("#activityId").val();
+            var registerId = $("#registerId").val();
+            var keepRecord = $("#photoImg").attr("src");
+            var userName = $("#userName").html();
+            var paramObj = {
+                activityId: activityId,
+                registerId: registerId,
+                keepRecord: keepRecord,
+                userName: userName,
+                success: function () {
+                    dataRegister.countRegister(activityId);
+                    showBasicInfo();
+                }
+            }
+            if (registerId != "") {
+                dataSign.computerSign(paramObj);
+            } else {
+                commonApi.alertMsg("请确认当前为有效用户");
+            }
+        });
+        $("#print").click(function () {
+            $("#expoInfo").show();
+        });
+        $("#allotHotel").click(function () {
+            $("#hotelInfo").show();
+        });
+
     });
+
+    function showBasicInfo() {
+        var searchVal = $("#search").val();
+        var activityId = $("#activityId").val();
+
+        var paramObj = {
+            activityId: activityId,
+            searchVal: searchVal,
+            success: function () {
+                $("#basicInfo").show();
+            }
+        }
+        dataRegister.fetchDataRegisterByDataRegisterParam(paramObj);
+    }
+
     var dataRegister = {
         countRegister: function (activityId) {
 
@@ -299,12 +408,65 @@
                     searchVal: paramObj.searchVal
                 },
                 success: function (res) {
-                    console.log(JSON.stringify(res));
+                    //console.log(JSON.stringify(res));
                     if (res.status) {
+                        // {"status":true,"code":"200","data":[{"registerId":3,"createTime":1556398291000,"activityInfoId":3,
+                        //     "email":null,"weixinId":null,"userName":"港哥2","companyName":"海天","workPhone":"17611030032",
+                        //     "position":null,"description":null,"prove":null,"proveName":null,"city":null,"cityName":null,
+                        //     "district":null,"districtName":null,"address":null,"status":3,
+                        //     "statusName":"审核中","photoImg":null,"qrCode":null,"statusCount":null}],"msg":null}
+                        var rData = res.data;
+                        if (rData.length < 1) {
+                            dataRegisterAjax.commonApi.alertMsg("未找到用户");
+                        }
+                        if (rData.length == 1) {
+                            console.log("===" + JSON.stringify(rData))
+                            $("#photoImg").attr("src", rData[0].photoImg);
+                            $("#userName").html(rData[0].userName);
+                            $("#workPhone").html(rData[0].workPhone);
+                            $("#statusName").html(rData[0].statusName);
+                            $("#registerId").val(rData[0].registerId);
+                            paramObj.success();
+                        }
                     }
                 }
             });
         }
+    }
+    var dataSign = {
+        computerSign: function (paramObj) {
+
+            dataSignAjax.newCommonApi(commonApi.newCommonApi());
+            dataSignAjax.computerSign({
+                model: {
+                    dataSign: {
+                        dataRegisterId: paramObj.registerId,
+                        activityInfoId: paramObj.activityId,
+                        keepRecord: paramObj.keepRecord,
+                        userName: paramObj.userName
+                    }
+                },
+                success: function (res) {
+                    console.log(JSON.stringify(res));
+                    if (res.status) {
+                        paramObj.success();
+                    }
+                }
+            });
+        }
+    }
+
+    // 弹窗
+    function showWindow(showmsg) {
+        $('#showdiv').show();   //显示弹窗
+        $('#cover').css('display', 'block'); //显示遮罩层
+
+    }
+
+    // 关闭弹窗
+    function closeWindow() {
+        $('#showdiv').hide();   //隐藏弹窗
+        $('#cover').css('display', 'none');     //显示遮罩层
     }
 </script>
 </body>

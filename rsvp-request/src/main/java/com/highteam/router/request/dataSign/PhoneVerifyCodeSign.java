@@ -1,4 +1,5 @@
 package com.highteam.router.request.dataSign;
 
-public class qrCodeSign {
+
+public class PhoneVerifyCodeSign {
 }
